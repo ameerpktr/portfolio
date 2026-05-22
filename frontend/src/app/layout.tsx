@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   description:
     "Premium fintech operations portfolio for Ameer M, specializing in fraud monitoring, payments, compliance, onboarding, and scalable risk systems.",
   keywords: ["Ameer M", "Fintech Operations", "Fraud Monitoring", "Payments", "AML", "KYC", "Risk Management"],
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png"
+  },
   openGraph: {
     title: "Ameer M | Fintech Operations Associate",
     description: "Fintech operations professional specializing in risk management and fraud reduction.",
