@@ -25,124 +25,137 @@ export function HeroSection() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Motion values for 3D Parallax Background
+  const bgRotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
+  const bgRotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
+
   if (!mounted) return null;
 
   return (
     <section className="relative min-h-screen w-full bg-[#050606] overflow-hidden">
       
-      {/* --- HACKER SCREEN DATA NETWORK BACKGROUND --- */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* --- 3D SPATIAL DATA NETWORK BACKGROUND --- */}
+      <motion.div 
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+        style={{ 
+          perspective: "1200px",
+          rotateX: bgRotateX,
+          rotateY: bgRotateY,
+          transformStyle: "preserve-3d"
+        }}
+      >
         
         {/* 1. Base Volumetric Center Glow */}
         <div 
-          className="absolute inset-0 z-0"
+          className="absolute inset-[-50%] z-0"
           style={{
-            background: "radial-gradient(circle at center, rgba(0, 255, 102, 0.12) 0%, rgba(5, 6, 6, 1) 75%)",
+            background: "radial-gradient(circle at center, rgba(0, 255, 102, 0.1) 0%, rgba(5, 6, 6, 0) 60%)",
           }}
         />
 
-        {/* 2. High-Density Data Matrix (Grid) */}
-        <div className="absolute inset-0 [perspective:800px] z-10 opacity-40">
+        {/* 2. Deep 3D Data Planes (Floor & Ceiling) */}
+        <div className="absolute inset-0 [transform-style:preserve-3d]">
+          {/* Floor */}
           <motion.div 
-            className="absolute inset-[-100%]"
+            className="absolute inset-[-100%] opacity-20"
             style={{ 
-              background: `
-                linear-gradient(to right, #00FF66 1px, transparent 1px),
-                linear-gradient(to bottom, #00FF66 1px, transparent 1px)
-              `,
-              backgroundSize: "40px 40px",
-              maskImage: "radial-gradient(circle at 50% 50%, black, transparent 80%)",
-              WebkitMaskImage: "radial-gradient(circle at 50% 50%, black, transparent 80%)",
-              transform: "rotateX(70deg) translateY(0%)",
+              background: `linear-gradient(to right, #00FF66 1px, transparent 1px), linear-gradient(to bottom, #00FF66 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+              transform: "rotateX(90deg) translateZ(-400px)",
             }}
-            animate={{ backgroundPositionY: ["0px", "40px"] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            animate={{ backgroundPositionY: ["0px", "60px"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          />
+          {/* Ceiling */}
+          <motion.div 
+            className="absolute inset-[-100%] opacity-20"
+            style={{ 
+              background: `linear-gradient(to right, #00FF66 1px, transparent 1px), linear-gradient(to bottom, #00FF66 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+              transform: "rotateX(-90deg) translateZ(-400px)",
+            }}
+            animate={{ backgroundPositionY: ["0px", "-60px"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
           />
         </div>
 
-        {/* 3. Horizontal & Vertical Data Streams (Dotted/Dashed) */}
-        <div className="absolute inset-0 z-20">
-          {/* Vertical Streams */}
-          {[...Array(DATA_STREAMS_COUNT)].map((_, i) => (
+        {/* 3. Volumetric Data Streams (Moving in Z-Space) */}
+        <div className="absolute inset-0 [transform-style:preserve-3d]">
+          {[...Array(25)].map((_, i) => (
             <motion.div
-              key={`v-${i}`}
-              className="absolute w-[1px] bg-emerald-500/20"
+              key={`v-stream-${i}`}
+              className="absolute w-[1px] bg-gradient-to-b from-transparent via-[#00FF66] to-transparent"
               style={{
-                height: "100%",
-                left: `${(i / DATA_STREAMS_COUNT) * 100}%`,
-                backgroundImage: "linear-gradient(to bottom, transparent, #00FF66, transparent)",
-                backgroundSize: "1px 150px",
-                backgroundRepeat: "repeat-y",
+                height: "600px",
+                left: `${Math.random() * 140 - 20}%`,
+                top: `${Math.random() * 100 - 50}%`,
+                opacity: 0.3,
+                boxShadow: "0 0 10px #00FF66",
               }}
-              animate={{ backgroundPositionY: ["0px", "600px"] }}
-              transition={{ duration: 10 + i % 5, repeat: Infinity, ease: "linear", delay: i * 0.1 }}
-            />
-          ))}
-          
-          {/* Horizontal Streaks */}
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={`h-${i}`}
-              className="absolute h-[1px] bg-emerald-500/30 shadow-[0_0_10px_#00FF66]"
-              style={{
-                width: "150px",
-                top: `${(i / 15) * 100}%`,
-                left: "-150px",
-              }}
-              animate={{ left: ["100%", "-10%"] }}
-              transition={{ duration: 4 + i % 3, repeat: Infinity, ease: "linear", delay: i * 0.8 }}
-            />
-          ))}
-        </div>
-
-        {/* 4. Glowing Data Nodes */}
-        <div className="absolute inset-0 z-30">
-          {[...Array(NODE_COUNT)].map((_, i) => (
-            <motion.div
-              key={`n-${i}`}
-              className="absolute w-1 h-1 bg-[#00FF66] rounded-full shadow-[0_0_15px_#00FF66]"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
+              initial={{ translateZ: -2000, opacity: 0 }}
               animate={{ 
-                opacity: [0, 0.8, 0],
-                scale: [0.5, 1.2, 0.5]
+                translateZ: [ -2000, 1000],
+                opacity: [0, 0.4, 0]
               }}
               transition={{ 
-                duration: 3 + Math.random() * 4, 
+                duration: 4 + Math.random() * 6, 
                 repeat: Infinity, 
-                ease: "easeInOut",
+                ease: "linear",
+                delay: Math.random() * 5
+              }}
+            />
+          ))}
+
+          {/* Horizontal Receding Streaks */}
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={`h-recede-${i}`}
+              className="absolute h-[1px] bg-[#00FF66] opacity-30"
+              style={{
+                width: "400px",
+                left: `${Math.random() * 100 - 20}%`,
+                top: `${Math.random() * 100}%`,
+                transformStyle: "preserve-3d",
+              }}
+              animate={{ 
+                translateZ: [-1500, 500],
+                opacity: [0, 0.5, 0]
+              }}
+              transition={{ 
+                duration: 5 + Math.random() * 5, 
+                repeat: Infinity, 
+                ease: "linear",
                 delay: Math.random() * 5
               }}
             />
           ))}
         </div>
 
-        {/* 5. Shooting Data Beams (Towards Camera) */}
-        <div className="absolute inset-0 [perspective:1000px] z-40">
-           {[...Array(8)].map((_, i) => (
+        {/* 4. Floating 3D Nodes */}
+        <div className="absolute inset-0 [transform-style:preserve-3d]">
+          {[...Array(NODE_COUNT)].map((_, i) => (
             <motion.div
-              key={`b-${i}`}
-              className="absolute w-1 h-20 bg-gradient-to-b from-transparent via-[#00FF66] to-transparent opacity-40 shadow-[0_0_20px_#00FF66]"
+              key={`n-3d-${i}`}
+              className="absolute w-1.5 h-1.5 bg-[#00FF66] rounded-full shadow-[0_0_15px_#00FF66]"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
               }}
               animate={{ 
                 translateZ: [-1000, 1000],
-                opacity: [0, 1, 0]
+                opacity: [0, 0.7, 0],
+                scale: [0.5, 1.5, 0.5]
               }}
               transition={{ 
-                duration: 2 + Math.random() * 2, 
+                duration: 6 + Math.random() * 10, 
                 repeat: Infinity, 
                 ease: "linear",
-                delay: i * 0.5
+                delay: Math.random() * 5
               }}
             />
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <Navbar />
 
