@@ -3,14 +3,75 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, BarChart3, Check, ChevronUp, Download, Eye, Github, Linkedin, Mail, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, BarChart3, Check, ChevronUp, Download, Eye, Github, Linkedin, Mail, ShieldCheck, Zap, Activity, Shield, TrendingDown } from "lucide-react";
 import { Navbar } from "@/components/system/navbar";
 import { Button } from "@/components/ui/button";
 import { socials } from "@/data/profile";
-
 import { useUiStore } from "@/store/ui-store";
 
 const words = "Fintech Operations Associate".split(" ");
+
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const portraitVariants = {
+  hidden: { opacity: 0, scale: 0.95, filter: "blur(15px)" },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1,
+      ease: [0.22, 1, 0.36, 1],
+      delay: 0.5,
+    },
+  },
+};
+
+const widgetVariants = {
+  hidden: { opacity: 0, scale: 0.8, filter: "blur(8px)" },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+      delay: 0.8 + i * 0.15,
+    },
+  }),
+};
+
+const floatAnimation = {
+  y: [0, -10, 0],
+  transition: {
+    duration: 4,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
 
 export function HeroSection() {
   const { theme } = useTheme();
@@ -27,14 +88,13 @@ export function HeroSection() {
   const smoothY = useSpring(mouseY, springConfig);
 
   // Map mouse position to rotation
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], [15, -15]);
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-15, 15]);
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [10, -10]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-10, 10]);
 
   useEffect(() => {
     setMounted(true);
 
     const handleGlobalMouseMove = (e: MouseEvent) => {
-      // Normalize mouse position between -0.5 and 0.5
       mouseX.set((e.clientX / window.innerWidth) - 0.5);
       mouseY.set((e.clientY / window.innerHeight) - 0.5);
     };
@@ -43,197 +103,283 @@ export function HeroSection() {
     return () => window.removeEventListener("mousemove", handleGlobalMouseMove);
   }, [mouseX, mouseY]);
 
-  return (
-    <section id="hero" className="noise-edge relative min-h-[75vh] overflow-hidden px-4 pb-4 pt-28 sm:px-6 lg:px-8">
-      <Navbar />
-      <div className="absolute inset-0 bg-radial-grid bg-[length:22px_22px] opacity-[0.14] dark:opacity-[0.045]" />
-      <motion.div className="absolute right-[12%] top-24 h-80 w-80 rounded-full bg-primary/10 blur-[90px]" animate={{ x: [-20, 24, -20], y: [0, 18, 0] }} transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }} />
+  if (!mounted) return null;
 
-      <div className="relative mx-auto grid min-h-[calc(100vh-8rem)] max-w-6xl items-center gap-10 lg:grid-cols-[0.98fr_1.02fr]">
-        <motion.div initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.055 } } }}>
-          <motion.div variants={{ hidden: { opacity: 0, y: 28, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-[13px] font-extrabold uppercase tracking-[0.14em] text-primary">
+  return (
+    <section id="hero" className="noise-edge relative min-h-[90vh] overflow-hidden px-4 pb-4 pt-28 sm:px-6 lg:px-8">
+      <Navbar />
+      
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-radial-grid bg-[length:32px_32px] opacity-[0.1] dark:opacity-[0.05]" />
+      <motion.div 
+        className="absolute right-[10%] top-32 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[120px]" 
+        animate={{ 
+          x: [-30, 30, -30], 
+          y: [-20, 20, -20],
+          scale: [1, 1.1, 1]
+        }} 
+        transition={{ repeat: Infinity, duration: 15, ease: "easeInOut" }} 
+      />
+
+      <div className="relative mx-auto grid min-h-[calc(100vh-12rem)] max-w-7xl items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
+        
+        {/* Left Content */}
+        <motion.div 
+          initial="hidden" 
+          animate="visible" 
+          variants={containerVariants}
+          className="z-10"
+        >
+          <motion.div 
+            variants={itemVariants} 
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-[12px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur-sm"
+          >
             <ShieldCheck className="h-4 w-4" />
-            Fintech operations - problem solver
+            Operational Excellence & Fintech Strategy
           </motion.div>
-          <motion.h1 className="font-display text-7xl font-extrabold tracking-[-0.06em] text-foreground sm:text-8xl" initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.055 } } }}>
-            <motion.span variants={{ hidden: { opacity: 0, y: 36, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } } }} className="block">
+          
+          <motion.h1 
+            className="font-display text-7xl font-extrabold tracking-[-0.04em] text-foreground sm:text-8xl lg:text-9xl"
+          >
+            <motion.span variants={itemVariants} className="block">
               Ameer M
             </motion.span>
-            <span className="mt-6 block max-w-2xl overflow-hidden text-3xl font-semibold leading-tight tracking-[-0.035em] sm:text-4xl">
+            <span className="mt-4 block max-w-2xl text-2xl font-medium leading-tight tracking-tight text-muted sm:text-3xl lg:text-4xl">
               {words.map((word, index) => (
-                <motion.span key={`${word}-${index}`} variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.48 } } }} className={`mr-2 inline-block ${word === "&" ? "accent-text" : "text-gradient"}`}>
+                <motion.span 
+                  key={`${word}-${index}`} 
+                  variants={itemVariants} 
+                  className={`mr-3 inline-block ${word === "Associate" ? "text-primary" : "text-foreground"}`}
+                >
                   {word}
                 </motion.span>
               ))}
             </span>
           </motion.h1>
-          <motion.p variants={{ hidden: { opacity: 0, y: 28, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } }} className="mt-8 max-w-2xl text-base font-medium leading-8 text-muted">
-            Specialized in fraud monitoring, payment operations, compliance workflows, and scalable fintech solutions - optimizing the next wave of operational excellence.
+
+          <motion.p 
+            variants={itemVariants} 
+            className="mt-8 max-w-xl text-lg font-medium leading-relaxed text-muted/80"
+          >
+            Optimizing high-scale financial operations through data-driven risk management, 
+            fraud prevention, and streamlined compliance workflows.
           </motion.p>
-          <motion.div variants={{ hidden: { opacity: 0, y: 28, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } }} className="mt-10 flex flex-wrap items-center gap-4">
+
+          <motion.div 
+            variants={itemVariants} 
+            className="mt-12 flex flex-wrap items-center gap-5"
+          >
             <a href="#operations">
-              <Button className="h-12 rounded-xl px-7 text-sm">
-                View My Work
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              <Button size="lg" className="group h-14 rounded-2xl px-8 text-base font-bold shadow-xl shadow-primary/20 transition-all hover:shadow-primary/30">
+                Explore Expertise
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </a>
-            <Button variant="secondary" className="h-12 rounded-xl px-7 text-sm" onClick={() => setResumeOpen(true)}>
-              View My Resume
-              <Eye className="h-4 w-4" />
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="h-14 rounded-2xl border-2 px-8 text-base font-bold backdrop-blur-md transition-all hover:bg-primary/5" 
+              onClick={() => setResumeOpen(true)}
+            >
+              Curriculum Vitae
+              <Eye className="ml-2 h-5 w-5" />
             </Button>
           </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, y: 28, filter: "blur(12px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } }} className="mt-10 flex gap-4">
+
+          <motion.div 
+            variants={itemVariants} 
+            className="mt-12 flex gap-5"
+          >
             {socials.slice(0, 3).map((social, index) => {
               const Icon = [Linkedin, Github, Mail][index];
               return (
-                <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="rounded-full border border-border bg-card p-4 text-foreground shadow-sm transition hover:-translate-y-1 hover:border-primary/50 hover:text-primary dark:bg-card" aria-label={social.label}>
-                  <Icon className="h-6 w-6" />
+                <a 
+                  key={index} 
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="group relative flex h-12 w-12 items-center justify-center rounded-2xl border border-border bg-card/50 text-foreground transition-all hover:-translate-y-1 hover:border-primary/50 hover:text-primary hover:shadow-lg hover:shadow-primary/10"
+                  aria-label={social.label}
+                >
+                  <Icon className="h-5 w-5" />
                 </a>
               );
             })}
           </motion.div>
         </motion.div>
 
+        {/* Right Content - Interactive Portrait */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.96, filter: "blur(14px)" }} 
-          animate={{ 
-            opacity: 1, 
-            scale: 1, 
-            filter: "blur(0px)"
-          }} 
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} 
-          className="relative hidden h-[42rem] lg:block"
+          initial="hidden"
+          animate="visible"
+          variants={portraitVariants}
+          className="relative hidden h-[45rem] w-full items-center justify-center lg:flex"
           style={{ 
             transformStyle: "preserve-3d",
             rotateX,
             rotateY,
-            perspective: 1000
+            perspective: 1200
           }}
         >
-          {/* Background Glow */}
-          <div className="absolute inset-0 rounded-[3rem] bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.15),transparent_50%)]" />
-          
-          {/* Photo & UI Centered Wrapper */}
-          <div className="relative mx-auto h-full w-[26rem]">
-            
-            {/* Main Photo Frame */}
+          {/* Animated Background Glow behind portrait */}
+          <div className="absolute inset-0 flex items-center justify-center">
             <motion.div 
-              className="absolute inset-0 overflow-hidden rounded-[2.5rem] border border-primary/20 bg-card shadow-2xl dark:border-primary/10"
-              style={{ transform: "translateZ(20px)" }}
+              className="h-[30rem] w-[30rem] rounded-full bg-primary/10 blur-[100px]"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            {/* Shifting data lines effect */}
+            <svg className="absolute h-full w-full opacity-20" viewBox="0 0 400 400">
+              <motion.path
+                d="M0,100 L400,100 M0,200 L400,200 M0,300 L400,300 M100,0 L100,400 M200,0 L200,400 M300,0 L300,400"
+                stroke="hsl(var(--primary))"
+                strokeWidth="0.5"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.2 }}
+                transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
+              />
+            </svg>
+          </div>
+          
+          {/* Portrait Container */}
+          <div className="relative h-[36rem] w-[26rem]">
+            
+            {/* Main Image Frame with Glassmorphism Border */}
+            <motion.div 
+              className="glass absolute inset-0 overflow-hidden rounded-[3rem] border-primary/20 shadow-2xl"
+              style={{ transform: "translateZ(30px)" }}
             >
               <motion.img 
                 src="/ameer.png" 
                 alt="Ameer M" 
-                className="h-full w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                className="h-full w-full object-cover grayscale brightness-110 transition-all duration-700 hover:grayscale-0"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               
-              {/* Inner frame text */}
               <div className="absolute bottom-10 left-10 text-white">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">Portrait - 2026</p>
-                <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight">Ameer M</h2>
-                <p className="text-xs font-semibold opacity-80">Fintech Operations Associate</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Core Portfolio</p>
+                <h2 className="mt-1 font-display text-4xl font-extrabold tracking-tight">Ameer M</h2>
+                <p className="text-sm font-semibold text-white/70">Kerala, India</p>
               </div>
 
-              {/* Corner Decor */}
-              <div className="absolute bottom-6 left-6 h-4 w-4 border-b-2 border-l-2 border-white/20" />
+              {/* Technical Grid Overlay on Image */}
+              <div className="absolute inset-0 pointer-events-none opacity-10 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]" />
             </motion.div>
 
-            {/* Floating UI Elements aligned to border sides */}
+            {/* Floating Fintech Widgets */}
             
-            {/* ACTIVE Badge */}
+            {/* Widget 1: Live Transactions */}
             <motion.div 
-              className="absolute -left-6 top-8 flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 backdrop-blur-md"
-              style={{ transform: "translateZ(50px)" }}
-            >
-              <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white">Active</span>
-            </motion.div>
-
-            {/* ID Badge */}
-            <motion.div 
-              className="absolute -right-6 top-8 rounded-full border border-white/10 bg-black/40 px-4 py-1.5 backdrop-blur-md"
-              style={{ transform: "translateZ(40px)" }}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">ID - AM-001</span>
-            </motion.div>
-
-            {/* KYC Card */}
-            <motion.div 
-              className="absolute -left-16 top-32 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 p-4 backdrop-blur-lg"
-              style={{ transform: "translateZ(80px)" }}
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400">
-                <Check className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-[11px] font-bold text-white">KYC verified</p>
-                <p className="text-[9px] font-medium text-white/50 uppercase tracking-tight">client #048</p>
-              </div>
-            </motion.div>
-
-            {/* Fraud YoY Card */}
-            <motion.div 
-              className="absolute -right-16 top-[38%] flex items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-5 backdrop-blur-lg"
+              custom={0}
+              variants={widgetVariants}
+              animate={floatAnimation}
+              className="absolute -right-12 top-10 z-20 w-48 rounded-2xl border border-white/10 bg-black/60 p-4 shadow-2xl backdrop-blur-xl"
               style={{ transform: "translateZ(100px)" }}
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/20 text-primary">
-                <ChevronUp className="h-5 w-5" />
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  <span className="text-[9px] font-black uppercase tracking-widest text-emerald-400">Live Txns</span>
+                </div>
+                <Activity className="h-3 w-3 text-emerald-400/40" />
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-black text-white">1,284</span>
+                <span className="text-[10px] font-bold text-emerald-400">/hr</span>
+              </div>
+              <div className="mt-3 h-1 w-full rounded-full bg-white/5 overflow-hidden">
+                <motion.div 
+                  className="h-full bg-emerald-400"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "75%" }}
+                  transition={{ duration: 2, delay: 1.5 }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Widget 2: Fraud Reduction */}
+            <motion.div 
+              custom={1}
+              variants={widgetVariants}
+              animate={{
+                ...floatAnimation,
+                transition: { ...floatAnimation.transition, delay: 0.5 }
+              }}
+              className="absolute -left-16 top-32 z-20 flex items-center gap-4 rounded-2xl border border-white/10 bg-black/60 p-4 shadow-2xl backdrop-blur-xl"
+              style={{ transform: "translateZ(80px)" }}
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
+                <TrendingDown className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-2xl font-extrabold text-white leading-none">40%</p>
-                <p className="mt-1 text-[10px] font-bold text-white/50 uppercase tracking-wider">fraud &darr; YoY</p>
+                <p className="text-2xl font-black text-white">40%</p>
+                <p className="text-[9px] font-bold uppercase tracking-widest text-emerald-400/70">Fraud Reduction</p>
               </div>
             </motion.div>
 
-            {/* SEON Pill */}
+            {/* Widget 3: System Status */}
             <motion.div 
-              className="absolute -left-12 bottom-[24%] rounded-full border border-white/10 bg-black/40 px-5 py-2 backdrop-blur-md"
-              style={{ transform: "translateZ(60px)" }}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">SEON - ZOHO - AML</span>
-            </motion.div>
-
-            {/* Live Dashboard Panel */}
-            <motion.div 
-              className="absolute -bottom-8 -right-12 w-56 rounded-2xl border border-white/10 bg-black/60 p-3 shadow-2xl backdrop-blur-xl"
+              custom={2}
+              variants={widgetVariants}
+              animate={{
+                ...floatAnimation,
+                transition: { ...floatAnimation.transition, delay: 1 }
+              }}
+              className="absolute -right-16 bottom-32 z-20 rounded-2xl border border-white/10 bg-black/60 p-4 shadow-2xl backdrop-blur-xl"
               style={{ transform: "translateZ(120px)" }}
             >
-              <div className="flex items-center justify-between">
-                <p className="text-[8px] font-bold uppercase tracking-widest text-white/40">Ops - 24H</p>
-                <span className="text-[8px] font-bold text-emerald-400">+12%</span>
-              </div>
-              <div className="mt-2 flex items-end justify-between">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <Shield className="h-8 w-8 text-emerald-400/20" />
+                  <Check className="absolute inset-0 m-auto h-4 w-4 text-emerald-400" />
+                </div>
                 <div>
-                  <p className="text-2xl font-extrabold text-white">524</p>
-                  <p className="mt-0.5 text-[7px] font-bold text-white/40 uppercase">txns monitored today</p>
+                  <p className="text-xs font-black text-white uppercase tracking-tighter">System Active</p>
+                  <p className="text-[8px] font-bold text-emerald-400 uppercase tracking-widest">Compliance Secured</p>
                 </div>
-                <div className="text-right">
-                  <div className="flex items-center justify-end gap-1">
-                    <div className="h-1 w-1 animate-pulse rounded-full bg-emerald-500" />
-                    <span className="text-[8px] font-black uppercase tracking-tighter text-emerald-500">Live</span>
-                  </div>
-                  <p className="mt-0.5 text-[7px] font-bold text-white/40 uppercase">Kerala - IN</p>
-                </div>
-              </div>
-              {/* Mini Area Chart */}
-              <div className="mt-3 h-6 w-full overflow-hidden">
-                <svg viewBox="0 0 100 40" className="h-full w-full" preserveAspectRatio="none">
-                  <path d="M0 40 L0 35 L10 32 L20 37 L30 25 L40 28 L50 15 L60 20 L70 10 L80 15 L90 5 L100 8 L100 40 Z" fill="url(#grad)" />
-                  <path d="M0 35 L10 32 L20 37 L30 25 L40 28 L50 15 L60 20 L70 10 L80 15 L90 5 L100 8" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                  <defs>
-                    <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.3 }} />
-                      <stop offset="100%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0 }} />
-                    </linearGradient>
-                  </defs>
-                </svg>
               </div>
             </motion.div>
+
+            {/* Widget 4: KYC/AML Pill */}
+            <motion.div 
+              custom={3}
+              variants={widgetVariants}
+              animate={{
+                ...floatAnimation,
+                transition: { ...floatAnimation.transition, delay: 1.5 }
+              }}
+              className="absolute -left-12 bottom-12 z-20 rounded-full border border-white/10 bg-black/40 px-6 py-2.5 shadow-xl backdrop-blur-md"
+              style={{ transform: "translateZ(60px)" }}
+            >
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white/80">SEON • ZOHO • AML</span>
+            </motion.div>
+
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted/50">Scroll to Explore</span>
+        <motion.div 
+          className="h-10 w-[2px] bg-gradient-to-b from-primary to-transparent"
+          animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
     </section>
   );
 }
-
