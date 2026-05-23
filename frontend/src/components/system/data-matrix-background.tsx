@@ -100,9 +100,6 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
       animationFrameId = requestAnimationFrame(render);
     };
 
-      animationFrameId = requestAnimationFrame(render);
-    };
-
     render();
 
     return () => {
