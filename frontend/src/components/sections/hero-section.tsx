@@ -8,6 +8,7 @@ import { HolographicCard } from "@/components/ui/holographic-card";
 import { DataMatrixBackground } from "@/components/system/data-matrix-background";
 import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/store/ui-store";
+import { socials } from "@/data/profile";
 
 const CUBIC_BEZIER_TRANSITION = [0.25, 1, 0.5, 1];
 
@@ -210,7 +211,7 @@ export function HeroSection() {
                           className="absolute -top-6 left-1/2 -translate-x-1/2 z-30"
                         >
                           <div className="px-6 py-2 rounded-full bg-[#1a1c1e] shadow-2xl flex items-center gap-2.5 border border-slate-800 border-white/10">
-                            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
+                            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]" />
                             <span className="text-[12px] text-white font-black uppercase tracking-[0.15em]">ACTIVE</span>
                           </div>
                         </motion.div>
@@ -312,11 +313,15 @@ export function HeroSection() {
               animate={{ opacity: dashboardStage === 'final' ? 1 : 0 }}
               className="relative z-20 flex justify-center gap-10 pb-2"
             >
-               {[Linkedin, Github, Mail].map((Icon, i) => (
-                 <a key={i} href="#" className="p-3 rounded-full bg-slate-200/50 hover:bg-slate-300/50 text-slate-800 transition-all hover:scale-110">
-                   <Icon size={22} fill="currentColor" className="stroke-none" />
-                 </a>
-               ))}
+               <a href={socials[0].href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-slate-200/50 hover:bg-slate-300/50 text-slate-800 transition-all hover:scale-110">
+                 <Linkedin size={22} fill="currentColor" className="stroke-none" />
+               </a>
+               <a href={socials[1].href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-slate-200/50 hover:bg-slate-300/50 text-slate-800 transition-all hover:scale-110">
+                 <Github size={22} fill="currentColor" className="stroke-none" />
+               </a>
+               <a href={socials[2].href} className="p-3 rounded-full bg-slate-200/50 hover:bg-slate-300/50 text-slate-800 transition-all hover:scale-110">
+                 <Mail size={22} fill="currentColor" className="stroke-none" />
+               </a>
             </motion.footer>
 
             {/* Subtle Texture/Grain */}

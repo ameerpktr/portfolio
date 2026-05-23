@@ -40,9 +40,11 @@ export function HolographicCard() {
         }}
         exit={{ 
           opacity: 0, 
-          scale: 0.85, 
-          filter: "blur(20px)",
-          transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } 
+          scale: 0.4, 
+          rotateY: 180,
+          rotateX: 45,
+          filter: "blur(40px)",
+          transition: { duration: 1.2, ease: [0.25, 1, 0.5, 1] } 
         }}
         transition={{ 
           duration: 3, 
@@ -53,37 +55,34 @@ export function HolographicCard() {
           width: "480px",
           height: "300px",
           transformOrigin: "20% 20%", // Start focus close to the chip area
-          // FROSTED GLASS EFFECT
-          background: "rgba(255, 255, 255, 0.01)", // Near-total transparency
-          backdropFilter: "blur(30px) saturate(160%) contrast(110%)", // Heavy blur + saturation
-          WebkitBackdropFilter: "blur(30px) saturate(160%) contrast(110%)",
+          // CLEAR GLASS EFFECT
+          background: "rgba(255, 255, 255, 0.005)", // Ultra-high transparency
+          backdropFilter: "blur(16px) saturate(120%) contrast(100%)", // Reduced blur for clearer glass
+          WebkitBackdropFilter: "blur(16px) saturate(120%) contrast(100%)",
           transformStyle: "preserve-3d",
           // SOFT WHITE BORDERS
-          border: "1.5px solid rgba(255, 255, 255, 0.08)",
+          border: "1.5px solid rgba(255, 255, 255, 0.12)",
           boxShadow: `
-            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 0 0 1px rgba(255, 255, 255, 0.08) inset,
             0 20px 50px rgba(0, 0, 0, 0.3),
-            0 0 20px rgba(22, 255, 0, 0.1)
+            0 0 20px rgba(22, 255, 0, 0.05)
           `,
         }}
       >
-        {/* FROSTED GRAIN TEXTURE LAYER */}
-        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-noise" />
-
         {/* LIGHT REFLECTIONS (Moving Highlights) */}
         <motion.div 
           className="absolute inset-0 z-0 pointer-events-none"
           style={{
-            background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%)",
+            background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)",
             backgroundSize: "200% 200%",
           }}
           animate={{ backgroundPosition: ["200% 200%", "-100% -100%"] }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* ORGANIC CAUSTIC LIGHT (Mint Tint) */}
+        {/* ORGANIC CAUSTIC LIGHT (Subtle Tint) */}
         <motion.div 
-          className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+          className="absolute inset-0 z-0 opacity-10 pointer-events-none"
           style={{
             background: "radial-gradient(circle at 50% 50%, rgba(22, 255, 0, 0.1) 0%, transparent 70%)",
           }}
@@ -111,14 +110,14 @@ export function HolographicCard() {
           {/* TOP ROW */}
           <div className="flex justify-between items-start">
             {/* Metallic Microchip */}
-            <div className="h-12 w-16 rounded-lg bg-gradient-to-br from-amber-100/40 via-yellow-400/30 to-amber-600/40 border border-white/10 shadow-inner overflow-hidden relative">
-               <div className="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,white_4px,white_5px)]" />
-               <div className="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,white_4px,white_5px)]" />
+            <div className="h-12 w-16 rounded-lg bg-gradient-to-br from-amber-100/60 via-yellow-400/50 to-amber-600/60 border border-white/20 shadow-inner overflow-hidden relative">
+               <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,white_4px,white_5px)]" />
+               <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,white_4px,white_5px)]" />
             </div>
             
             {/* Contactless Icon */}
-            <div className="text-white/40 group-hover:text-white/60 transition-colors">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <div className="text-white/60 group-hover:text-white/90 transition-colors">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M11 12a1 1 0 0 1 2 0"/>
               </svg>
             </div>
@@ -126,7 +125,7 @@ export function HolographicCard() {
 
           {/* CENTER / NUMBERS */}
           <div className="mt-8">
-            <p className="font-mono text-[28px] tracking-[0.24em] text-white/80 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+            <p className="font-mono text-[28px] tracking-[0.24em] text-white font-bold filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
               1243  3342  4358  0040
             </p>
           </div>
@@ -134,19 +133,19 @@ export function HolographicCard() {
           {/* BOTTOM ROW */}
           <div className="flex justify-between items-end">
             <div className="space-y-1">
-              <div className="flex gap-10 opacity-40">
-                <p className="text-[10px] font-medium text-white tracking-[0.1em] uppercase">FICB</p>
-                <p className="text-[10px] font-medium text-white tracking-[0.1em] uppercase">MAST FOXP</p>
+              <div className="flex gap-10 opacity-60">
+                <p className="text-[10px] font-bold text-white tracking-[0.1em] uppercase">FICB</p>
+                <p className="text-[10px] font-bold text-white tracking-[0.1em] uppercase">MAST FOXP</p>
               </div>
-              <p className="text-lg font-medium text-white/70 tracking-[0.12em] uppercase mt-2">
-                ADTAY ODEKER
+              <p className="text-lg font-bold text-white tracking-[0.15em] uppercase mt-2 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+                AMEER M
               </p>
             </div>
 
             {/* Logo Circles */}
-            <div className="flex -space-x-5 pr-1 mb-1 opacity-60 grayscale-[0.2] hover:grayscale-0 transition-all">
-              <div className="h-11 w-11 rounded-full bg-[#EB001B]/80" />
-              <div className="h-11 w-11 rounded-full bg-[#F79E1B]/80" />
+            <div className="flex -space-x-5 pr-1 mb-1 opacity-90 transition-all">
+              <div className="h-11 w-11 rounded-full bg-[#EB001B]" />
+              <div className="h-11 w-11 rounded-full bg-[#F79E1B]" />
             </div>
           </div>
         </motion.div>
