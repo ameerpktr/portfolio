@@ -10,13 +10,25 @@ import { useUiStore } from "@/store/ui-store";
 
 const CUBIC_BEZIER_TRANSITION = [0.25, 1, 0.5, 1];
 
-// Background Neon Light Beam Configurations
-const BEAMS = [
-  { left: "15%", top: "-10%", width: "2px", height: "40%", rotate: "25deg", delay: 0 },
-  { left: "40%", top: "20%", width: "1px", height: "50%", rotate: "-15deg", delay: 1 },
-  { left: "65%", top: "-5%", width: "3px", height: "35%", rotate: "35deg", delay: 0.5 },
-  { left: "80%", top: "40%", width: "1px", height: "60%", rotate: "-20deg", delay: 2 },
-  { left: "25%", top: "50%", width: "2px", height: "45%", rotate: "10deg", delay: 1.5 },
+// Background Neon Light Structure Configurations
+const VERTICAL_STREAMS = [...Array(12)].map((_, i) => ({
+  left: `${i * 8 + 5}%`,
+  delay: i * 0.4,
+  duration: 4 + (i % 3),
+  width: i % 4 === 0 ? "2px" : "1px"
+}));
+
+const HORIZONTAL_STREAMS = [...Array(8)].map((_, i) => ({
+  top: `${i * 12 + 10}%`,
+  delay: i * 0.7,
+  duration: 5 + (i % 2),
+  height: i % 3 === 0 ? "2px" : "1px"
+}));
+
+const INTERSECTIONS = [
+  { left: "21%", top: "34%" }, { left: "45%", top: "58%" },
+  { left: "69%", top: "22%" }, { left: "85%", top: "70%" },
+  { left: "13%", top: "82%" }, { left: "77%", top: "46%" }
 ];
 
 export function HeroSection() {
@@ -57,33 +69,38 @@ export function HeroSection() {
           />
         </div>
 
-        {/* NEON LIGHT BEAMS (Specific Streaks from Reference) */}
-        {isIntro && BEAMS.map((beam, i) => (
-          <motion.div
-            key={i}
-            className="absolute z-0"
-            style={{
-              left: beam.left,
-              top: beam.top,
-              width: beam.width,
-              height: beam.height,
-              rotate: beam.rotate,
-              background: "linear-gradient(to bottom, transparent, #00FF66, transparent)",
-              boxShadow: "0 0 15px #00FF66, 0 0 30px #00FF66",
-              opacity: 0.4
-            }}
-            animate={{ 
-              y: [-20, 20, -20],
-              opacity: [0.3, 0.6, 0.3]
-            }}
-            transition={{ 
-              duration: 6 + i, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: beam.delay 
-            }}
-          />
-        ))}
+        {/* NEON LIGHT STREAMS (Patterned Structure) */}
+        {isIntro && (
+          <>
+            {VERTICAL_STREAMS.map((stream, i) => (
+              <motion.div
+                key={`v-${i}`}
+                className="absolute z-0 bg-gradient-to-b from-transparent via-[#00FF66] to-transparent opacity-20"
+                style={{ left: stream.left, width: stream.width, height: "100%", top: 0 }}
+                animate={{ opacity: [0.1, 0.3, 0.1], y: ["-10%", "10%"] }}
+                transition={{ duration: stream.duration, repeat: Infinity, ease: "easeInOut", delay: stream.delay }}
+              />
+            ))}
+            {HORIZONTAL_STREAMS.map((stream, i) => (
+              <motion.div
+                key={`h-${i}`}
+                className="absolute z-0 bg-gradient-to-r from-transparent via-[#00FF66] to-transparent opacity-20"
+                style={{ top: stream.top, height: stream.height, width: "100%", left: 0 }}
+                animate={{ opacity: [0.1, 0.3, 0.1], x: ["-5%", "5%"] }}
+                transition={{ duration: stream.duration, repeat: Infinity, ease: "easeInOut", delay: stream.delay }}
+              />
+            ))}
+            {INTERSECTIONS.map((node, i) => (
+              <motion.div
+                key={`n-${i}`}
+                className="absolute z-0 w-1 h-1 bg-[#00FF66] rounded-full shadow-[0_0_12px_#00FF66]"
+                style={{ left: node.left, top: node.top }}
+                animate={{ scale: [1, 2, 1], opacity: [0.3, 0.7, 0.3] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+              />
+            ))}
+          </>
+        )}
 
         {/* BACKGROUND AMBIENT NEON PULSE */}
         <motion.div 
