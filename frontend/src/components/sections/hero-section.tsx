@@ -15,10 +15,13 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full bg-[#0a0a0c] overflow-hidden">
-      {/* MATRIX GRID BACKGROUND */}
-      <div className="absolute inset-0 perspective-[1000px] opacity-20">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00ff41_1px,transparent_1px),linear-gradient(to_bottom,#00ff41_1px,transparent_1px)] bg-[size:50px_50px] [transform:rotateX(60deg)] scale-[2]" />
+    <section className="relative min-h-screen w-full bg-[#050505] overflow-hidden">
+      {/* 3D PERSPECTIVE MATRIX GRID */}
+      <div className="absolute inset-0 [perspective:500px]">
+        <div 
+          className="absolute inset-0 opacity-20 [transform:rotateX(60deg)] scale-[2] bg-[linear-gradient(to_right,#00FF66_1px,transparent_1px),linear-gradient(to_bottom,#00FF66_1px,transparent_1px)] bg-[size:50px_50px]" 
+          style={{ maskImage: "linear-gradient(to bottom, black, transparent)" }}
+        />
       </div>
 
       <Navbar />
@@ -28,9 +31,10 @@ export function HeroSection() {
           <motion.div 
             key="intro"
             className="flex min-h-screen items-center justify-center"
-            exit={{ opacity: 0, scale: 0.8 }}
+            exit={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
           >
-            <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+            <motion.div animate={{ y: [0, -15, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
               <HolographicCard />
             </motion.div>
           </motion.div>
@@ -44,35 +48,35 @@ export function HeroSection() {
             {/* Left Content */}
             <div className="space-y-6">
               <h1 className="font-display text-8xl font-black tracking-tighter text-white">AMEER M</h1>
-              <p className="text-2xl text-emerald-400 font-medium">Fintech Operations Associate</p>
-              <div className="space-y-4 text-gray-400">
-                <p>Specializing in fraud monitoring and payment ops.</p>
-              </div>
+              <p className="text-2xl text-[#00FF66] font-medium tracking-wide">Fintech Operations Associate</p>
+              <p className="text-gray-400 max-w-md">Specializing in high-frequency fraud monitoring and scalable payment infrastructure.</p>
             </div>
 
             {/* Right Dashboard */}
             <div className="relative h-[500px] flex items-center justify-center">
               {/* Profile Image Frame */}
-              <div className="relative h-96 w-72 rounded-[2rem] border border-white/10 bg-black/40 overflow-hidden backdrop-blur-md">
-                {/* Laser Scan Effect */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500 shadow-[0_0_20px_#10b981] z-20 animate-scan" />
-                <img src="/ameer.png" className="h-full w-full object-cover grayscale" />
+              <div className="relative h-96 w-72 rounded-[2rem] overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/10 bg-black/40 backdrop-blur-md">
+                {/* Neon Laser Scan */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-[#00FF66] shadow-[0_0_12px_#00FF66] z-20 animate-scan" />
+                <img src="/ameer.png" className="h-full w-full object-cover grayscale brightness-90" />
+                
+                {/* Pills */}
                 <div className="absolute top-4 left-4 flex gap-2">
-                  <div className="px-2 py-1 rounded bg-emerald-900/50 border border-emerald-500/50 text-[10px] text-emerald-400 font-bold uppercase">Active</div>
-                  <div className="px-2 py-1 rounded bg-emerald-900/50 border border-emerald-500/50 text-[10px] text-emerald-400 font-bold uppercase flex items-center gap-1"><Check size={10} /> KYC</div>
+                  <div className="px-3 py-1 rounded-full bg-[#00FF66]/10 border border-[#00FF66]/50 text-[10px] text-[#00FF66] font-bold uppercase shadow-[0_0_10px_rgba(0,255,102,0.3)]">Active</div>
+                  <div className="px-3 py-1 rounded-full bg-[#00FF66]/10 border border-[#00FF66]/50 text-[10px] text-[#00FF66] font-bold uppercase flex items-center gap-1 shadow-[0_0_10px_rgba(0,255,102,0.3)]"><Check size={10} /> KYC</div>
                 </div>
               </div>
 
-              {/* Metrics */}
-              <div className="absolute -right-20 top-20 w-64 space-y-4">
-                <div className="p-6 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl">
+              {/* Metrics UI */}
+              <div className="absolute -right-16 top-20 w-64 space-y-4">
+                <div className="p-6 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-xl">
                   <p className="text-4xl font-black text-white">40%</p>
-                  <p className="text-xs text-emerald-400 uppercase tracking-widest">Fraud ↓ YOY</p>
+                  <p className="text-[10px] text-[#00FF66] uppercase tracking-[0.2em]">Fraud ↓ YOY</p>
                 </div>
-                <div className="p-6 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl">
-                  <p className="text-sm text-white font-bold">OPS - 24H</p>
-                  <p className="text-2xl font-black text-white">524 <span className="text-sm font-normal text-emerald-400">+16.4%</span></p>
-                  <p className="text-[10px] text-gray-500">TXNS MONITORED TODAY</p>
+                <div className="p-6 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-xl">
+                  <p className="text-xs text-white font-bold mb-1">OPS - 24H</p>
+                  <p className="text-2xl font-black text-white">524 <span className="text-sm font-normal text-[#00FF66]">+16.4%</span></p>
+                  <p className="text-[9px] text-gray-500 uppercase tracking-widest mt-1">TXNS MONITORED TODAY</p>
                 </div>
               </div>
             </div>
@@ -83,10 +87,11 @@ export function HeroSection() {
       <style jsx global>{`
         @keyframes scan {
           0% { top: 0%; }
-          100% { top: 100%; }
+          50% { top: 100%; }
+          100% { top: 0%; }
         }
         .animate-scan {
-          animation: scan 3s linear infinite;
+          animation: scan 4s ease-in-out infinite;
         }
       `}</style>
     </section>
