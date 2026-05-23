@@ -10,27 +10,6 @@ import { useUiStore } from "@/store/ui-store";
 
 const CUBIC_BEZIER_TRANSITION = [0.25, 1, 0.5, 1];
 
-// Background Neon Light Structure Configurations
-const VERTICAL_STREAMS = [...Array(12)].map((_, i) => ({
-  left: `${i * 8 + 5}%`,
-  delay: i * 0.4,
-  duration: 4 + (i % 3),
-  width: i % 4 === 0 ? "2px" : "1px"
-}));
-
-const HORIZONTAL_STREAMS = [...Array(8)].map((_, i) => ({
-  top: `${i * 12 + 10}%`,
-  delay: i * 0.7,
-  duration: 5 + (i % 2),
-  height: i % 3 === 0 ? "2px" : "1px"
-}));
-
-const INTERSECTIONS = [
-  { left: "21%", top: "34%" }, { left: "45%", top: "58%" },
-  { left: "69%", top: "22%" }, { left: "85%", top: "70%" },
-  { left: "13%", top: "82%" }, { left: "77%", top: "46%" }
-];
-
 export function HeroSection() {
   const [isIntro, setIsIntro] = useState(true);
   const setResumeOpen = useUiStore((state) => state.setResumeOpen);
@@ -41,76 +20,68 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full bg-[#0a0a0b] overflow-hidden">
+    <section className="relative min-h-screen w-full bg-[#0d1110] overflow-hidden">
       
-      {/* DYNAMIC 3D MATRIX BACKGROUND MOTION */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 [perspective:1000px]">
+      {/* 1. VOLUMETRIC BACKGROUND GLOW (Atmospheric Light Source) */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at center, rgba(0, 255, 102, 0.18) 0%, rgba(10, 15, 12, 0.9) 70%, #0d1110 100%)",
+        }}
+      />
+
+      {/* 2. DYNAMIC 3D NEON GRID/LINES (Moving Data Matrix) */}
+      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+        {/* Layer 1: Forward Moving Grid */}
+        <div className="absolute inset-0 [perspective:500px]">
           <motion.div 
-            className="absolute inset-0 opacity-[0.25]"
-            initial={{ rotateX: 60, scale: 2.5, y: "-15%" }}
-            animate={{ 
-              backgroundPositionY: ["0px", "60px"],
-            }}
-            transition={{ 
-              duration: 3, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
+            className="absolute inset-[-100%] opacity-40"
             style={{ 
               background: `
                 linear-gradient(to right, #00FF66 1px, transparent 1px),
                 linear-gradient(to bottom, #00FF66 1px, transparent 1px)
               `,
-              backgroundSize: "60px 60px",
-              maskImage: "linear-gradient(to bottom, transparent, black 40%, black 60%, transparent)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent, black 40%, black 60%, transparent)"
+              backgroundSize: "80px 80px",
+              filter: "drop-shadow(0 0 8px rgba(0, 255, 102, 0.8))",
+              maskImage: "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)",
+              transform: "rotateX(60deg) translateY(0%)",
+            }}
+            animate={{ 
+              backgroundPositionY: ["0px", "80px"],
+            }}
+            transition={{ 
+              duration: 2.5, 
+              repeat: Infinity, 
+              ease: "linear" 
             }}
           />
         </div>
 
-        {/* NEON LIGHT STREAMS (Patterned Structure) */}
-        {isIntro && (
-          <>
-            {VERTICAL_STREAMS.map((stream, i) => (
-              <motion.div
-                key={`v-${i}`}
-                className="absolute z-0 bg-gradient-to-b from-transparent via-[#00FF66] to-transparent opacity-20"
-                style={{ left: stream.left, width: stream.width, height: "100%", top: 0 }}
-                animate={{ opacity: [0.1, 0.3, 0.1], y: ["-10%", "10%"] }}
-                transition={{ duration: stream.duration, repeat: Infinity, ease: "easeInOut", delay: stream.delay }}
-              />
-            ))}
-            {HORIZONTAL_STREAMS.map((stream, i) => (
-              <motion.div
-                key={`h-${i}`}
-                className="absolute z-0 bg-gradient-to-r from-transparent via-[#00FF66] to-transparent opacity-20"
-                style={{ top: stream.top, height: stream.height, width: "100%", left: 0 }}
-                animate={{ opacity: [0.1, 0.3, 0.1], x: ["-5%", "5%"] }}
-                transition={{ duration: stream.duration, repeat: Infinity, ease: "easeInOut", delay: stream.delay }}
-              />
-            ))}
-            {INTERSECTIONS.map((node, i) => (
-              <motion.div
-                key={`n-${i}`}
-                className="absolute z-0 w-1 h-1 bg-[#00FF66] rounded-full shadow-[0_0_12px_#00FF66]"
-                style={{ left: node.left, top: node.top }}
-                animate={{ scale: [1, 2, 1], opacity: [0.3, 0.7, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-              />
-            ))}
-          </>
-        )}
-
-        {/* BACKGROUND AMBIENT NEON PULSE */}
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full opacity-[0.03]"
-          style={{
-            background: "radial-gradient(circle, #00FF66 0%, transparent 70%)"
-          }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.03, 0.06, 0.03] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+        {/* Layer 2: Drifting Intersecting Lines (Floating Streaks) */}
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-[#00FF66] opacity-30 shadow-[0_0_12px_#00FF66]"
+            style={{
+              width: i % 2 === 0 ? "1px" : "150px",
+              height: i % 2 === 0 ? "150px" : "1px",
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              filter: "drop-shadow(0 0 5px #00FF66)",
+            }}
+            animate={{ 
+              x: i % 2 === 0 ? [0, 0] : [-200, 200],
+              y: i % 2 === 0 ? [-200, 200] : [0, 0],
+              opacity: [0.1, 0.4, 0.1]
+            }}
+            transition={{ 
+              duration: 5 + Math.random() * 5, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+          />
+        ))}
       </div>
 
       <Navbar />
@@ -119,7 +90,7 @@ export function HeroSection() {
         {isIntro ? (
           <motion.div 
             key="intro"
-            className="flex min-h-screen items-center justify-center relative z-50"
+            className="flex min-h-screen items-center justify-center relative z-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ 
@@ -138,9 +109,9 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 grid min-h-screen max-w-7xl mx-auto items-center lg:grid-cols-2 px-10 gap-16"
+            className="relative z-20 grid min-h-screen max-w-7xl mx-auto items-center lg:grid-cols-2 px-10 gap-16"
           >
-            {/* Left Column: Typography */}
+            {/* Left Column: Premium Dark Typography */}
             <div className="space-y-10">
               <div className="space-y-3">
                 <motion.h1 
@@ -185,8 +156,9 @@ export function HeroSection() {
               </motion.div>
             </div>
 
-            {/* Right Column: Profile Image */}
+            {/* Right Column: Profile & Advanced Metrics */}
             <div className="flex items-center justify-center lg:justify-end gap-10">
+              {/* Profile Image Frame with Biometric Scan */}
               <div className="relative">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -194,12 +166,17 @@ export function HeroSection() {
                   transition={{ delay: 0.4, duration: 1 }}
                   className="relative h-[480px] w-80 rounded-[2.5rem] overflow-hidden border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_40px_80px_rgba(0,0,0,0.6)]"
                 >
+                  {/* Glowing Laser Scan Line */}
                   <motion.div 
                     className="absolute top-0 left-0 w-full h-[2px] bg-[#00FF66] shadow-[0_0_20px_#00FF66,0_0_40px_#00FF66] z-20"
                     animate={{ top: ["0%", "100%", "0%"] }}
                     transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                   />
+                  
+                  {/* Monochrome Portrait */}
                   <img src="/ameer.png" className="h-full w-full object-cover grayscale brightness-110 contrast-125" alt="Ameer" />
+                  
+                  {/* Glassmorphic Pills */}
                   <div className="absolute top-8 left-8 flex flex-col gap-3">
                     <div className="px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-[#00FF66]/30 shadow-[0_0_15px_rgba(0,255,136,0.2)] text-[10px] text-[#00FF66] font-black uppercase flex items-center gap-2">
                       <div className="h-2 w-2 rounded-full bg-[#00FF66] animate-pulse shadow-[0_0_8px_#00FF66]" /> ACTIVE
@@ -208,11 +185,13 @@ export function HeroSection() {
                       <Check size={12} className="text-[#00FF66]" /> KYC VERIFIED
                     </div>
                   </div>
+
+                  {/* Corner Accents */}
                   <div className="absolute bottom-6 right-6 h-10 w-10 border-b-2 border-r-2 border-white/20 rounded-br-2xl" />
                 </motion.div>
               </div>
 
-              {/* Metrics Cards */}
+              {/* High-Contrast Metrics Cards */}
               <div className="flex flex-col gap-6 w-60">
                 <motion.div 
                   initial={{ opacity: 0, x: 40 }}
