@@ -93,10 +93,8 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         const y2d = centerY + (s.y * canvas.height * 0.8 + pY) * scale;
         const len = s.length * scale;
 
-        // Add subtle flicker for cinematic look (reduced frequency)
-        const flicker = Math.random() > 0.99 ? 0.4 : 1.0;
-
-        ctx.globalAlpha = Math.min(1, scale * 2.5) * flicker;
+        // Stable brightness for cinematic look
+        ctx.globalAlpha = Math.min(1, scale * 2.5);
         const grad = ctx.createLinearGradient(x2d, y2d, x2d, y2d + len);
         grad.addColorStop(0, "transparent");
         grad.addColorStop(0.5, s.color);
@@ -109,7 +107,7 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         ctx.lineTo(x2d, y2d + len);
         ctx.stroke();
 
-        // High-Intensity Nodes (Soft Bloom)
+        // Nodes - stable brightness
         if (s.z < 2500 && Math.random() > 0.99) {
            ctx.fillStyle = s.color;
            ctx.shadowBlur = 20;
