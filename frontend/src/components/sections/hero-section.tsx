@@ -15,23 +15,83 @@ export function HeroSection() {
   const setResumeOpen = useUiStore((state) => state.setResumeOpen);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsIntro(false), 4000);
+    const timer = setTimeout(() => setIsIntro(false), 5000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full bg-[#1E2224] overflow-hidden">
-      {/* 3D PERSPECTIVE NETWORK GRID BACKGROUND */}
-      <div className="absolute inset-0 z-0 [perspective:800px]">
-        <div 
-          className="absolute inset-0 opacity-[0.15] [transform:rotateX(65deg)_translateY(-10%)] scale-[2.5] bg-[linear-gradient(to_right,#00FF88_1px,transparent_1px),linear-gradient(to_bottom,#00FF88_1px,transparent_1px)] bg-[size:60px_60px]" 
-          style={{ 
-            maskImage: "radial-gradient(circle at 50% 50%, black 30%, transparent 80%)",
-            WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 30%, transparent 80%)"
+    <section className="relative min-h-screen w-full bg-[#111418] overflow-hidden">
+      
+      {/* ADVANCED 3D NEON GRID BACKGROUND */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Deep Perspective Layer */}
+        <div className="absolute inset-0 [perspective:1000px]">
+          <motion.div 
+            className="absolute inset-0 opacity-[0.25]"
+            initial={{ rotateX: 55, y: "-10%", scale: 1.5 }}
+            animate={{ 
+              rotateX: [55, 60, 55],
+              y: ["-10%", "-5%", "-10%"],
+              scale: [1.5, 1.6, 1.5]
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            style={{ 
+              background: `
+                linear-gradient(to right, #00FF88 1px, transparent 1px),
+                linear-gradient(to bottom, #00FF88 1px, transparent 1px)
+              `,
+              backgroundSize: "60px 60px",
+              maskImage: "radial-gradient(circle at 50% 50%, black, transparent 80%)",
+              WebkitMaskImage: "radial-gradient(circle at 50% 50%, black, transparent 80%)"
+            }}
+          />
+          
+          {/* Data Nodes / Glowing Bits */}
+          <div className="absolute inset-0 opacity-[0.15] [transform:rotateX(55deg)_translateY(-10%)] scale-[1.5] bg-[radial-gradient(#00FF88_2px,transparent_1px)] bg-[size:60px_60px]" />
+        </div>
+
+        {/* NEON LIGHT WISPS / NEBULA EFFECTS */}
+        <motion.div 
+          className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-[#00FF88]/5 blur-[120px]"
+          animate={{ 
+            x: [-100, 100, -100],
+            y: [-50, 50, -50],
+            opacity: [0.3, 0.6, 0.3]
           }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
-        {/* Glowing Nodes (Subtle nodes at intersections) */}
-        <div className="absolute inset-0 opacity-10 [transform:rotateX(65deg)_translateY(-10%)] scale-[2.5] bg-[radial-gradient(#00FF88_2px,transparent_1px)] bg-[size:60px_60px]" />
+        <motion.div 
+          className="absolute top-[30%] -right-[10%] w-[50%] h-[50%] rounded-full bg-emerald-500/5 blur-[150px]"
+          animate={{ 
+            x: [50, -50, 50],
+            y: [50, -50, 50],
+            opacity: [0.2, 0.5, 0.2]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+
+        {/* Floating Digital Particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-[#00FF88] rounded-full opacity-20 shadow-[0_0_10px_#00FF88]"
+            initial={{ 
+              x: Math.random() * 100 + "%", 
+              y: Math.random() * 100 + "%",
+              scale: Math.random() * 0.5 + 0.5
+            }}
+            animate={{ 
+              y: ["0%", "100%"],
+              opacity: [0, 0.4, 0]
+            }}
+            transition={{ 
+              duration: Math.random() * 10 + 10, 
+              repeat: Infinity, 
+              ease: "linear",
+              delay: Math.random() * 10
+            }}
+          />
+        ))}
       </div>
 
       <Navbar />
@@ -45,9 +105,9 @@ export function HeroSection() {
             animate={{ opacity: 1 }}
             exit={{ 
               opacity: 0, 
-              scale: 0.6,
+              scale: 0.7,
               filter: "blur(40px)",
-              transition: { duration: 1.2, ease: CUBIC_BEZIER }
+              transition: { duration: 1.5, ease: CUBIC_BEZIER }
             }}
           >
             <HolographicCard />
@@ -55,7 +115,7 @@ export function HeroSection() {
         ) : (
           <motion.div 
             key="dashboard"
-            initial={{ opacity: 0, scale: 1.1 }}
+            initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: CUBIC_BEZIER }}
             className="relative z-10 grid min-h-screen max-w-7xl mx-auto items-center lg:grid-cols-2 px-10 gap-16"
