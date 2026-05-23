@@ -9,7 +9,7 @@ export function HolographicCard() {
       <motion.div
         className="absolute inset-[-100px] z-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(0,255,102,0.15) 0%, rgba(0,0,0,0) 70%)",
+          background: "radial-gradient(circle, rgba(195, 255, 240, 0.15) 0%, rgba(0,0,0,0) 70%)",
         }}
         animate={{
           scale: [1, 1.1, 1],
@@ -39,14 +39,14 @@ export function HolographicCard() {
           background: "rgba(255, 255, 255, 0.03)",
           backdropFilter: "blur(25px) saturate(140%)",
           transformStyle: "preserve-3d",
-          boxShadow: "0 0 20px rgba(0, 255, 102, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 0 20px rgba(195, 255, 240, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.1)",
         }}
       >
         {/* ORGANIC FLOWING LIGHT EFFECTS (Caustics) */}
         <motion.div 
           className="absolute inset-0 z-0 opacity-40 pointer-events-none"
           style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.15) 0%, transparent 60%)",
+            background: "radial-gradient(circle at 50% 50%, rgba(195, 255, 240, 0.15) 0%, transparent 60%)",
           }}
           animate={{ 
             scale: [1, 1.2, 1],
@@ -59,7 +59,7 @@ export function HolographicCard() {
         <motion.div 
           className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] z-0 opacity-20 pointer-events-none"
           style={{
-            background: "conic-gradient(from 0deg at 50% 50%, transparent, rgba(255,255,255,0.1), transparent, rgba(0, 255, 136, 0.05), transparent)",
+            background: "conic-gradient(from 0deg at 50% 50%, transparent, rgba(255,255,255,0.1), transparent, rgba(195, 255, 240, 0.05), transparent)",
           }}
           animate={{ rotate: 360 }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
