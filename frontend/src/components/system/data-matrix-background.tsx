@@ -43,6 +43,7 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
 
     const render = () => {
       // 1. Update Physics
+      const fov = 1000;
       streams.forEach((s) => {
         s.z -= s.speed;
         if (s.z < -fov) s.z = 5000;
