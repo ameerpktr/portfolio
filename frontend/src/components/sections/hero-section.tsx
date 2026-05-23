@@ -105,6 +105,12 @@ export function HeroSection() {
   const rotateX = useTransform(smoothY, [-0.5, 0.5], [7, -7]);
   const rotateY = useTransform(smoothX, [-0.5, 0.5], [-7, 7]);
 
+  // Ambient Glow Hook (Fixed: Moved out of JSX)
+  const ambientGlowBackground = useTransform(
+    [mouseX, mouseY],
+    ([x, y]) => `radial-gradient(600px circle at ${((x as number) + 0.5) * 100}% ${((y as number) + 0.5) * 100}%, hsl(var(--primary)), transparent)`
+  );
+
   useEffect(() => {
     setMounted(true);
 
@@ -437,10 +443,7 @@ export function HeroSection() {
       <motion.div
         className="pointer-events-none absolute -inset-[500px] z-0 opacity-[0.03] dark:opacity-[0.05]"
         style={{
-          background: useTransform(
-            [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(600px circle at ${((x as number) + 0.5) * 100}% ${((y as number) + 0.5) * 100}%, hsl(var(--primary)), transparent)`
-          )
+          background: ambientGlowBackground
         }}
       />
     </section>
