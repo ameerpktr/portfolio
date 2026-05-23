@@ -80,8 +80,12 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
       drawPlane(600 + pY); drawPlane(-600 + pY);
       drawPlane(0, -800 + pX, true); drawPlane(0, 800 + pX, true);
 
-      // Draw Streams
+      // --- 2. Draw Hyper-Dense Data Streams ---
+      ctx.globalCompositeOperation = 'lighter'; // Additive blending for 'cinematic' glow
       streams.forEach((s) => {
+        s.z -= s.speed;
+        if (s.z < -fov) s.z = 5000;
+
         const scale = fov / (fov + s.z);
         if (scale <= 0) return;
 
@@ -89,14 +93,35 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         const y2d = centerY + (s.y * canvas.height * 0.8 + pY) * scale;
         const len = s.length * scale;
 
-        ctx.globalAlpha = Math.min(1, scale * 2);
-        ctx.strokeStyle = s.color;
-        ctx.lineWidth = 2 * scale;
+        // Add subtle flicker for cinematic look (reduced frequency)
+        const flicker = Math.random() > 0.99 ? 0.4 : 1.0;
+
+        ctx.globalAlpha = Math.min(1, scale * 2.5) * flicker;
+        const grad = ctx.createLinearGradient(x2d, y2d, x2d, y2d + len);
+        grad.addColorStop(0, "transparent");
+        grad.addColorStop(0.5, s.color);
+        grad.addColorStop(1, "transparent");
+
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 3 * scale;
         ctx.beginPath();
         ctx.moveTo(x2d, y2d);
         ctx.lineTo(x2d, y2d + len);
         ctx.stroke();
+
+        // High-Intensity Nodes (Soft Bloom)
+        if (s.z < 2500 && Math.random() > 0.99) {
+           ctx.fillStyle = s.color;
+           ctx.shadowBlur = 20;
+           ctx.shadowColor = s.color;
+           ctx.beginPath();
+           ctx.arc(x2d, y2d, 3 * scale, 0, Math.PI * 2);
+           ctx.fill();
+           ctx.shadowBlur = 0;
+        }
       });
+      ctx.globalCompositeOperation = 'source-over'; // Reset blend mode
+
 
       animationFrameId = requestAnimationFrame(render);
     };
