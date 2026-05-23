@@ -96,35 +96,40 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         const y2d = centerY + (s.y * canvas.height * 0.8 + pY) * scale;
         const len = s.length * scale;
 
-        ctx.globalAlpha = Math.min(1, scale * 2.5);
+        // Make streams brighter
+        ctx.globalAlpha = Math.min(1, scale * 3); 
         const grad = ctx.createLinearGradient(x2d, y2d, x2d, y2d + len);
         grad.addColorStop(0, "transparent");
         grad.addColorStop(0.5, s.color);
         grad.addColorStop(1, "transparent");
-        
+
         ctx.strokeStyle = grad;
-        ctx.lineWidth = 2 * scale;
+        ctx.lineWidth = 3 * scale; 
+        ctx.shadowBlur = 10 * scale; 
+        ctx.shadowColor = s.color;
         ctx.beginPath();
         ctx.moveTo(x2d, y2d);
         ctx.lineTo(x2d, y2d + len);
         ctx.stroke();
 
-        // High-Intensity Nodes
-        if (s.z < 2500 && Math.random() > 0.97) {
-           ctx.fillStyle = s.color;
-           ctx.shadowBlur = 20;
+        // Nodes - shinier
+        if (s.z < 2500 && Math.random() > 0.98) {
+           ctx.fillStyle = "#FFFFFF"; 
+           ctx.shadowBlur = 25;
            ctx.shadowColor = s.color;
            ctx.beginPath();
-           ctx.arc(x2d, y2d, 2.5 * scale, 0, Math.PI * 2);
+           ctx.arc(x2d, y2d, 3 * scale, 0, Math.PI * 2);
            ctx.fill();
            ctx.shadowBlur = 0;
         }
       });
 
+
       // --- 3. Central Volumetric Pulse ---
       const pulseGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, canvas.width / 1.5);
-      pulseGrad.addColorStop(0, "rgba(242, 181, 11, 0.05)"); // Amber tint for glow
+      pulseGrad.addColorStop(0, "rgba(22, 255, 0, 0.15)"); // Increased intensity
       pulseGrad.addColorStop(1, "transparent");
+
       ctx.fillStyle = pulseGrad;
       ctx.globalAlpha = 1;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
