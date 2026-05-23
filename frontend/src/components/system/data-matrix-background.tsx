@@ -54,7 +54,7 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
       scrollOffset.current = (scrollOffset.current + 4) % 100;
 
       // --- 1. Draw 3D Tunnel Planes (Floor, Ceiling, Walls) ---
-      ctx.strokeStyle = "rgba(195, 255, 240, 0.15)";
+      ctx.strokeStyle = "rgba(22, 255, 0, 0.15)";
       ctx.lineWidth = 1;
 
       const drawPlane = (rotationX: number, rotationY: number, translateZ: number) => {
@@ -99,7 +99,7 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         ctx.globalAlpha = Math.min(1, scale * 2);
         const grad = ctx.createLinearGradient(x2d, y2d, x2d, y2d + len);
         grad.addColorStop(0, "transparent");
-        grad.addColorStop(0.5, "#C3FFF0");
+        grad.addColorStop(0.5, "#16FF00");
         grad.addColorStop(1, "transparent");
         
         ctx.strokeStyle = grad;
@@ -111,9 +111,9 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
 
         // Nodes on some streams
         if (s.z < 2000 && Math.random() > 0.98) {
-           ctx.fillStyle = "#C3FFF0";
+           ctx.fillStyle = "#16FF00";
            ctx.shadowBlur = 15;
-           ctx.shadowColor = "#C3FFF0";
+           ctx.shadowColor = "#16FF00";
            ctx.beginPath();
            ctx.arc(x2d, y2d, 2 * scale, 0, Math.PI * 2);
            ctx.fill();
@@ -123,7 +123,7 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
 
       // --- 3. Central Volumetric Pulse ---
       const pulseGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, canvas.width / 2);
-      pulseGrad.addColorStop(0, "rgba(195, 255, 240, 0.08)");
+      pulseGrad.addColorStop(0, "rgba(22, 255, 0, 0.08)");
       pulseGrad.addColorStop(1, "transparent");
       ctx.fillStyle = pulseGrad;
       ctx.globalAlpha = 1;

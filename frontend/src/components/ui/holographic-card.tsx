@@ -9,88 +9,116 @@ export function HolographicCard() {
       <motion.div
         className="absolute inset-[-100px] z-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(195, 255, 240, 0.15) 0%, rgba(0,0,0,0) 70%)",
+          background: "radial-gradient(circle, rgba(22, 255, 0, 0.1) 0%, rgba(0,0,0,0) 70%)",
         }}
         animate={{
           scale: [1, 1.1, 1],
-          opacity: [0.5, 0.8, 0.5],
+          opacity: [0.3, 0.6, 0.3],
         }}
         transition={{
-          duration: 4,
+          duration: 5,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
 
+      {/* GLASS CARD CONTAINER */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.85, rotateY: -15, rotateX: 10 }}
-        animate={{ opacity: 1, scale: 1, rotateY: -5, rotateX: 5 }}
+        initial={{ 
+          opacity: 0, 
+          scale: 1.8, 
+          rotateY: -30, 
+          rotateX: 15, 
+          filter: "blur(10px)" 
+        }}
+        animate={{ 
+          opacity: 1, 
+          scale: 1, 
+          rotateY: 0, 
+          rotateX: 0, 
+          filter: "blur(0px)" 
+        }}
         exit={{ 
           opacity: 0, 
           scale: 0.85, 
           filter: "blur(20px)",
           transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } 
         }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-50 flex flex-col justify-between rounded-[24px] p-10 overflow-hidden cursor-default border border-white/20"
+        transition={{ 
+          duration: 3, 
+          ease: [0.22, 1, 0.36, 1] 
+        }}
+        className="relative z-50 flex flex-col justify-between rounded-[28px] p-10 overflow-hidden cursor-default"
         style={{
           width: "480px",
           height: "300px",
-          background: "rgba(255, 255, 255, 0.03)",
-          backdropFilter: "blur(25px) saturate(140%)",
+          transformOrigin: "20% 20%", // Start focus close to the chip area
+          // FROSTED GLASS EFFECT
+          background: "rgba(255, 255, 255, 0.01)", // Near-total transparency
+          backdropFilter: "blur(30px) saturate(160%) contrast(110%)", // Heavy blur + saturation
+          WebkitBackdropFilter: "blur(30px) saturate(160%) contrast(110%)",
           transformStyle: "preserve-3d",
-          boxShadow: "0 0 20px rgba(195, 255, 240, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.1)",
+          // SOFT WHITE BORDERS
+          border: "1.5px solid rgba(255, 255, 255, 0.08)",
+          boxShadow: `
+            0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+            0 20px 50px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(22, 255, 0, 0.1)
+          `,
         }}
       >
-        {/* ORGANIC FLOWING LIGHT EFFECTS (Caustics) */}
+        {/* FROSTED GRAIN TEXTURE LAYER */}
+        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-noise" />
+
+        {/* LIGHT REFLECTIONS (Moving Highlights) */}
         <motion.div 
-          className="absolute inset-0 z-0 opacity-40 pointer-events-none"
+          className="absolute inset-0 z-0 pointer-events-none"
           style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(195, 255, 240, 0.15) 0%, transparent 60%)",
+            background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%)",
+            backgroundSize: "200% 200%",
           }}
-          animate={{ 
-            scale: [1, 1.2, 1],
-            x: [-20, 20, -20],
-            y: [-10, 10, -10],
-            rotate: [0, 10, 0]
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div 
-          className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] z-0 opacity-20 pointer-events-none"
-          style={{
-            background: "conic-gradient(from 0deg at 50% 50%, transparent, rgba(255,255,255,0.1), transparent, rgba(195, 255, 240, 0.05), transparent)",
-          }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          animate={{ backgroundPosition: ["200% 200%", "-100% -100%"] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* COMBINED FLOATING & TILTING ANIMATION WRAPPER */}
+        {/* ORGANIC CAUSTIC LIGHT (Mint Tint) */}
+        <motion.div 
+          className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+          style={{
+            background: "radial-gradient(circle at 50% 50%, rgba(22, 255, 0, 0.1) 0%, transparent 70%)",
+          }}
+          animate={{ 
+            scale: [1, 1.3, 1],
+            x: [-30, 30, -30],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* CONTENT WRAPPER */}
         <motion.div
           className="relative z-10 h-full w-full flex flex-col justify-between"
           animate={{ 
-            y: [-6, 6, -6],
-            rotateX: [-3, 3, -3],
-            rotateY: [4, -4, 4]
+            y: [-5, 5, -5],
+            rotateX: [-2, 2, -2],
+            rotateY: [3, -3, 3]
           }}
           transition={{ 
-            duration: 5, 
+            duration: 6, 
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
         >
           {/* TOP ROW */}
           <div className="flex justify-between items-start">
-            {/* Rectangular Golden Microchip */}
-            <div className="h-12 w-16 rounded-lg bg-gradient-to-br from-amber-200 via-yellow-400 to-amber-600 border border-amber-200/50 shadow-[0_0_20px_rgba(251,191,36,0.3)] overflow-hidden relative">
-               <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,rgba(0,0,0,0.4)_4px,rgba(0,0,0,0.4)_5px)]" />
-               <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,rgba(0,0,0,0.4)_4px,rgba(0,0,0,0.4)_5px)]" />
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-black/20" />
+            {/* Metallic Microchip */}
+            <div className="h-12 w-16 rounded-lg bg-gradient-to-br from-amber-100/40 via-yellow-400/30 to-amber-600/40 border border-white/10 shadow-inner overflow-hidden relative">
+               <div className="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,white_4px,white_5px)]" />
+               <div className="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,white_4px,white_5px)]" />
             </div>
             
-            {/* Contactless Payment Wave */}
-            <div className="text-white/70">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            {/* Contactless Icon */}
+            <div className="text-white/40 group-hover:text-white/60 transition-colors">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M11 12a1 1 0 0 1 2 0"/>
               </svg>
             </div>
@@ -98,37 +126,30 @@ export function HolographicCard() {
 
           {/* CENTER / NUMBERS */}
           <div className="mt-8">
-            <p className="font-mono text-[28px] tracking-[0.22em] text-white/95 text-shadow-glow">
+            <p className="font-mono text-[28px] tracking-[0.24em] text-white/80 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
               1243  3342  4358  0040
             </p>
           </div>
 
           {/* BOTTOM ROW */}
           <div className="flex justify-between items-end">
-            {/* Text Details Group */}
             <div className="space-y-1">
-              <div className="flex gap-10">
-                <p className="text-[11px] font-medium text-white/40 tracking-[0.1em] uppercase">FICB</p>
-                <p className="text-[11px] font-medium text-white/40 tracking-[0.1em] uppercase">MAST FOXP</p>
+              <div className="flex gap-10 opacity-40">
+                <p className="text-[10px] font-medium text-white tracking-[0.1em] uppercase">FICB</p>
+                <p className="text-[10px] font-medium text-white tracking-[0.1em] uppercase">MAST FOXP</p>
               </div>
-              <p className="text-lg font-medium text-white/90 tracking-[0.12em] uppercase mt-2">
+              <p className="text-lg font-medium text-white/70 tracking-[0.12em] uppercase mt-2">
                 ADTAY ODEKER
               </p>
             </div>
 
-            {/* MasterCard Style Dual-Circle Logo */}
-            <div className="flex -space-x-4 pr-1 mb-1 opacity-90">
-              <div className="h-11 w-11 rounded-full bg-[#EB001B]/90 shadow-[0_0_20px_rgba(235,0,27,0.2)]" />
-              <div className="h-11 w-11 rounded-full bg-[#F79E1B]/90 shadow-[0_0_20px_rgba(247,158,27,0.2)]" />
+            {/* Logo Circles */}
+            <div className="flex -space-x-5 pr-1 mb-1 opacity-60 grayscale-[0.2] hover:grayscale-0 transition-all">
+              <div className="h-11 w-11 rounded-full bg-[#EB001B]/80" />
+              <div className="h-11 w-11 rounded-full bg-[#F79E1B]/80" />
             </div>
           </div>
         </motion.div>
-
-        <style jsx>{`
-          .text-shadow-glow {
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
-          }
-        `}</style>
       </motion.div>
     </div>
   );
