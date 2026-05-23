@@ -1,161 +1,47 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Check, Download, Eye, Activity, TrendingDown } from "lucide-react";
 import { Navbar } from "@/components/system/navbar";
 import { HolographicCard } from "@/components/ui/holographic-card";
+import { DataMatrixBackground } from "@/components/system/data-matrix-background";
 import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/store/ui-store";
 
 const CUBIC_BEZIER_TRANSITION = [0.25, 1, 0.5, 1];
-
-// Constants for the "Hacker" Background Density
-const DATA_STREAMS_COUNT = 40;
-const NODE_COUNT = 30;
 
 export function HeroSection() {
   const [isIntro, setIsIntro] = useState(true);
   const [mounted, setMounted] = useState(false);
   const setResumeOpen = useUiStore((state) => state.setResumeOpen);
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
   useEffect(() => {
     setMounted(true);
     const timer = setTimeout(() => setIsIntro(false), 6000);
-    return () => clearTimeout(timer);
-  }, []);
+    
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      mouseX.set((e.clientX / window.innerWidth) - 0.5);
+      mouseY.set((e.clientY / window.innerHeight) - 0.5);
+    };
 
-  // Motion values for 3D Parallax Background
-  const bgRotateX = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
-  const bgRotateY = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
+    window.addEventListener("mousemove", handleGlobalMouseMove);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", handleGlobalMouseMove);
+    };
+  }, [mouseX, mouseY]);
 
   if (!mounted) return null;
 
   return (
     <section className="relative min-h-screen w-full bg-[#050606] overflow-hidden">
       
-      {/* --- 3D SPATIAL DATA NETWORK BACKGROUND --- */}
-      <motion.div 
-        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
-        style={{ 
-          perspective: "1200px",
-          rotateX: bgRotateX,
-          rotateY: bgRotateY,
-          transformStyle: "preserve-3d"
-        }}
-      >
-        
-        {/* 1. Base Volumetric Center Glow */}
-        <div 
-          className="absolute inset-[-50%] z-0"
-          style={{
-            background: "radial-gradient(circle at center, rgba(0, 255, 102, 0.1) 0%, rgba(5, 6, 6, 0) 60%)",
-          }}
-        />
-
-        {/* 2. Deep 3D Data Planes (Floor & Ceiling) */}
-        <div className="absolute inset-0 [transform-style:preserve-3d]">
-          {/* Floor */}
-          <motion.div 
-            className="absolute inset-[-100%] opacity-20"
-            style={{ 
-              background: `linear-gradient(to right, #00FF66 1px, transparent 1px), linear-gradient(to bottom, #00FF66 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-              transform: "rotateX(90deg) translateZ(-400px)",
-            }}
-            animate={{ backgroundPositionY: ["0px", "60px"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          />
-          {/* Ceiling */}
-          <motion.div 
-            className="absolute inset-[-100%] opacity-20"
-            style={{ 
-              background: `linear-gradient(to right, #00FF66 1px, transparent 1px), linear-gradient(to bottom, #00FF66 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-              transform: "rotateX(-90deg) translateZ(-400px)",
-            }}
-            animate={{ backgroundPositionY: ["0px", "-60px"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
-
-        {/* 3. Volumetric Data Streams (Moving in Z-Space) */}
-        <div className="absolute inset-0 [transform-style:preserve-3d]">
-          {[...Array(25)].map((_, i) => (
-            <motion.div
-              key={`v-stream-${i}`}
-              className="absolute w-[1px] bg-gradient-to-b from-transparent via-[#00FF66] to-transparent"
-              style={{
-                height: "600px",
-                left: `${Math.random() * 140 - 20}%`,
-                top: `${Math.random() * 100 - 50}%`,
-                opacity: 0.3,
-                boxShadow: "0 0 10px #00FF66",
-              }}
-              initial={{ translateZ: -2000, opacity: 0 }}
-              animate={{ 
-                translateZ: [ -2000, 1000],
-                opacity: [0, 0.4, 0]
-              }}
-              transition={{ 
-                duration: 4 + Math.random() * 6, 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: Math.random() * 5
-              }}
-            />
-          ))}
-
-          {/* Horizontal Receding Streaks */}
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={`h-recede-${i}`}
-              className="absolute h-[1px] bg-[#00FF66] opacity-30"
-              style={{
-                width: "400px",
-                left: `${Math.random() * 100 - 20}%`,
-                top: `${Math.random() * 100}%`,
-                transformStyle: "preserve-3d",
-              }}
-              animate={{ 
-                translateZ: [-1500, 500],
-                opacity: [0, 0.5, 0]
-              }}
-              transition={{ 
-                duration: 5 + Math.random() * 5, 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: Math.random() * 5
-              }}
-            />
-          ))}
-        </div>
-
-        {/* 4. Floating 3D Nodes */}
-        <div className="absolute inset-0 [transform-style:preserve-3d]">
-          {[...Array(NODE_COUNT)].map((_, i) => (
-            <motion.div
-              key={`n-3d-${i}`}
-              className="absolute w-1.5 h-1.5 bg-[#00FF66] rounded-full shadow-[0_0_15px_#00FF66]"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{ 
-                translateZ: [-1000, 1000],
-                opacity: [0, 0.7, 0],
-                scale: [0.5, 1.5, 0.5]
-              }}
-              transition={{ 
-                duration: 6 + Math.random() * 10, 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: Math.random() * 5
-              }}
-            />
-          ))}
-        </div>
-      </motion.div>
+      {/* OPTIMIZED CANVAS BACKGROUND (Hyper-Dense 3D Matrix) */}
+      <DataMatrixBackground mouseX={mouseX} mouseY={mouseY} />
 
       <Navbar />
 
