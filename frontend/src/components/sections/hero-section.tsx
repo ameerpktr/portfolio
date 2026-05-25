@@ -9,6 +9,7 @@ import { DataMatrixBackground } from "@/components/system/data-matrix-background
 import { Button } from "@/components/ui/button";
 import { useUiStore } from "@/store/ui-store";
 import { socials } from "@/data/profile";
+import { SkillTicker } from "@/components/system/skill-ticker";
 
 const CUBIC_BEZIER_TRANSITION = [0.25, 1, 0.5, 1];
 
@@ -149,7 +150,7 @@ export function HeroSection() {
             key="dashboard-phase"
             initial="initial"
             animate="animate"
-            className="relative min-h-screen w-full bg-[#f4f6f5] dark:bg-[#050505] flex flex-col transition-colors duration-1000 overflow-hidden"
+            className="relative min-h-[90vh] w-full bg-[#f4f6f5] dark:bg-[#050505] flex flex-col transition-colors duration-1000 overflow-hidden"
             style={{ backgroundColor: theme === 'dark' ? '#050505' : '#f4f6f5' }}
           >
             {/* E. Navbar */}
@@ -282,6 +283,7 @@ export function HeroSection() {
             {/* E. Footer */}
             <footer className="relative z-20 w-full flex justify-center gap-6 py-6">
             </footer>
+            <SkillTicker />
           </motion.div>
         )}
       </AnimatePresence>
