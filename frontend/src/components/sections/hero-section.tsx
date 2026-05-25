@@ -199,13 +199,15 @@ export function HeroSection() {
                   <Button onClick={() => setResumeOpen(true)} className="rounded-2xl px-8 bg-[#00845e] dark:bg-[#d97706] text-white font-bold hover:opacity-90 transition-all">View My CV</Button>
                   <a href="#experience"><Button variant="ghost" className="rounded-2xl border-slate-200 dark:border-slate-800 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-900">View My Works</Button></a>
                   
-                  {/* LinkedIn & Mail */}
+                  {/* LinkedIn, GitHub & Mail */}
                   <div className="flex gap-2 ml-2">
                     <a href={socials.find(s => s.label === 'Linkedin')?.href} target="_blank" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#0077b5]/10 text-slate-800 dark:text-[#d97706] hover:text-[#0077b5] transition-all border border-slate-200 dark:border-slate-800">
                       <Linkedin size={20} />
                     </a>
+                    <a href={socials.find(s => s.label === 'Github')?.href} target="_blank" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#333]/10 text-slate-800 dark:text-[#d97706] hover:text-[#333] dark:hover:text-white transition-all border border-slate-200 dark:border-slate-800">
+                      <Github size={20} />
+                    </a>
                     <a href={`mailto:${socials.find(s => s.label === 'Mail')?.href}`} className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#d97706]/10 text-slate-800 dark:text-[#d97706] transition-all border border-slate-200 dark:border-slate-800">
-
                       <Mail size={20} />
                     </a>
                   </div>
