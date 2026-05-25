@@ -12,7 +12,7 @@ export function SkillTicker() {
   return (
     <div className="relative w-full h-12 bg-black flex items-center overflow-hidden border-t border-b border-[#d97706]/20">
       <motion.div
-        className="flex whitespace-nowrap"
+        className="flex items-center whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
           duration: 30,
