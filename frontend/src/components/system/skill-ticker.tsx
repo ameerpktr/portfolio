@@ -22,7 +22,7 @@ export function SkillTicker() {
       >
         {[...skills, ...skills].map((skill, index) => (
           <div key={index} className="flex items-center px-8">
-            <span className="text-slate-400 font-mono text-sm uppercase tracking-widest font-bold">
+            <span className="text-slate-700 dark:text-slate-400 font-mono text-sm uppercase tracking-widest font-bold">
               {skill}
             </span>
             <span className="ml-8 text-slate-500/50">•</span>
