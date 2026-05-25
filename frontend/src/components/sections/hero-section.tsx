@@ -79,7 +79,7 @@ export function HeroSection() {
         duration: 0.8, 
         ease: CUBIC_BEZIER_TRANSITION,
         staggerChildren: 0.1,
-        delayChildren: 0.4 // Starts at 0.4s
+        delayChildren: 0.4 
       } 
     }
   };
@@ -99,7 +99,7 @@ export function HeroSection() {
         duration: 0.8, 
         ease: CUBIC_BEZIER_TRANSITION,
         staggerChildren: 0.15,
-        delayChildren: 0.4 // Starts at 0.4s
+        delayChildren: 0.4 
       } 
     }
   };
@@ -116,7 +116,7 @@ export function HeroSection() {
       opacity: 1, 
       scale: 1, 
       transition: { 
-        delay: 1.0, // Heavy delay as requested
+        delay: 1.0, 
         duration: 0.5, 
         ease: CUBIC_BEZIER_TRANSITION 
       } 
@@ -149,7 +149,7 @@ export function HeroSection() {
             key="dashboard-phase"
             initial="initial"
             animate="animate"
-            className="relative min-h-screen w-full bg-[#f4f6f5] dark:bg-[#050505] flex flex-col transition-colors duration-1000"
+            className="relative min-h-screen w-full bg-[#f4f6f5] dark:bg-[#050505] flex flex-col transition-colors duration-1000 overflow-hidden"
             style={{ backgroundColor: theme === 'dark' ? '#050505' : '#f4f6f5' }}
           >
             {/* E. Navbar */}
@@ -157,7 +157,7 @@ export function HeroSection() {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8, ease: CUBIC_BEZIER_TRANSITION }}
-              className="relative z-20 grid grid-cols-3 items-center px-6 lg:px-12 py-4"
+              className="relative z-20 w-full grid grid-cols-3 items-center px-6 lg:px-12 py-6"
             >
               <div />
               <div className="flex justify-center gap-4 lg:gap-8 text-[11px] lg:text-[13px] font-bold text-slate-800 dark:text-slate-400 tracking-tight">
@@ -176,7 +176,8 @@ export function HeroSection() {
               </div>
             </motion.nav>
 
-            <div className="flex-1 relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-center px-6 gap-8 pb-10">
+            {/* DASHBOARD CONTENT */}
+            <div className="flex-1 relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-center px-6 gap-8 lg:gap-12">
               
               {/* B. Left Column Content */}
               <motion.div 
@@ -185,12 +186,28 @@ export function HeroSection() {
               >
                 <motion.h1 variants={leftItemVariants} className="font-display text-5xl lg:text-8xl font-black tracking-tighter text-slate-900 dark:text-[#f8fafc]">Ameer M</motion.h1>
                 <motion.p variants={leftItemVariants} className="text-xl lg:text-2xl text-[#00845e] dark:text-[#d97706] font-bold uppercase tracking-wider">Fintech Operations Associate</motion.p>
+                <motion.div variants={leftItemVariants} className="bg-emerald-500/10 dark:bg-[#d97706]/10 border-l-4 border-emerald-500 dark:border-[#d97706] p-4 rounded-r-xl">
+                  <p className="text-slate-700 dark:text-slate-200 text-sm lg:text-[17px] leading-relaxed">
+                    <span className="font-bold text-slate-900 dark:text-[#d97706]">Proven Impact:</span> Mitigated over <span className="font-extrabold text-[#00845e] dark:text-[#f8fafc]">$10M+ in fraudulent transactions</span> while scaling operational efficiency across 5+ core fintech systems.
+                  </p>
+                </motion.div>
                 <motion.p variants={leftItemVariants} className="text-slate-500 dark:text-slate-400 text-sm lg:text-[17px] leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  Fintech Operations Associate with 3+ years of experience. Expert in fraud detection, SEON monitoring, customer onboarding, and AML/KYC compliance.
+                  Building secure fintech ecosystems through advanced fraud intelligence, rigorous AML/KYC compliance, and seamless operational workflows.
                 </motion.p>
+                {/* Prominent Contact Buttons */}
                 <motion.div variants={leftItemVariants} className="flex items-center justify-center lg:justify-start gap-4">
                   <Button onClick={() => setResumeOpen(true)} className="rounded-2xl px-8 bg-[#00845e] dark:bg-[#d97706] text-white font-bold hover:opacity-90 transition-all">View My CV</Button>
                   <a href="#experience"><Button variant="ghost" className="rounded-2xl border-slate-200 dark:border-slate-800 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-900">View My Works</Button></a>
+                  
+                  {/* LinkedIn & Mail */}
+                  <div className="flex gap-2 ml-2">
+                    <a href={socials.find(s => s.name === 'Linkedin')?.href} target="_blank" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#0077b5]/10 text-slate-800 dark:text-[#d97706] hover:text-[#0077b5] transition-all border border-slate-200 dark:border-slate-800">
+                      <Linkedin size={20} />
+                    </a>
+                    <a href={`mailto:${socials.find(s => s.name === 'Mail')?.href}`} className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#d97706]/10 text-slate-800 dark:text-[#d97706] transition-all border border-slate-200 dark:border-slate-800">
+                      <Mail size={20} />
+                    </a>
+                  </div>
                 </motion.div>
               </motion.div>
 
@@ -208,7 +225,7 @@ export function HeroSection() {
                     transformOrigin: "center center" 
                   }}
                   transition={{ duration: 1.5, ease: CUBIC_BEZIER_TRANSITION }}
-                  className="relative h-[400px] w-[280px] lg:h-[520px] lg:w-[380px] rounded-[2rem] overflow-hidden border-[4px] border-white dark:border-[#1a1c1e] bg-slate-200 dark:bg-slate-900 z-20 shadow-2xl"
+                  className="relative h-[380px] w-[260px] lg:h-[500px] lg:w-[360px] rounded-[2rem] overflow-hidden border-[4px] border-white dark:border-[#1a1c1e] bg-slate-200 dark:bg-slate-900 z-20 shadow-2xl"
                 >
                   <img src="/ameer.png" className="h-full w-full object-cover grayscale brightness-110" alt="Ameer" />
                   
@@ -260,7 +277,7 @@ export function HeroSection() {
             </div>
 
             {/* E. Footer */}
-            <footer className="relative z-20 flex justify-center gap-6 pb-6">
+            <footer className="relative z-20 w-full flex justify-center gap-6 py-6">
               {[Linkedin, Github, Mail].map((Icon, i) => (
                 <motion.a 
                   key={i} 
