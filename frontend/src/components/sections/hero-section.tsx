@@ -202,10 +202,10 @@ export function HeroSection() {
                   
                   {/* LinkedIn, GitHub & Mail */}
                   <div className="flex gap-2 ml-2">
-                    <a href={socials.find(s => s.label === 'Linkedin')?.href} target="_blank" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#0077b5]/10 text-slate-800 dark:text-[#d97706] hover:text-[#0077b5] transition-all border border-slate-200 dark:border-slate-800">
+                    <a href={socials.find(s => s.label === 'Linkedin')?.href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#0077b5]/10 text-slate-800 dark:text-[#d97706] hover:text-[#0077b5] transition-all border border-slate-200 dark:border-slate-800">
                       <Linkedin size={20} />
                     </a>
-                    <a href={socials.find(s => s.label === 'Github')?.href} target="_blank" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#333]/10 text-slate-800 dark:text-[#d97706] hover:text-[#333] dark:hover:text-white transition-all border border-slate-200 dark:border-slate-800">
+                    <a href={socials.find(s => s.label === 'Github')?.href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#333]/10 text-slate-800 dark:text-[#d97706] hover:text-[#333] dark:hover:text-white transition-all border border-slate-200 dark:border-slate-800">
                       <Github size={20} />
                     </a>
                     <a href={`mailto:${socials.find(s => s.label === 'Mail')?.href}`} className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#d97706]/10 text-slate-800 dark:text-[#d97706] transition-all border border-slate-200 dark:border-slate-800">
