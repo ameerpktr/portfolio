@@ -59,7 +59,7 @@ export function ResumeModal() {
                   We'll use Google Docs Viewer for a modern embedded look.
                 */}
                 <iframe
-                  src={`https://docs.google.com/gview?url=${window.location.origin}/resume.docx&embedded=true`}
+                  src={`https://docs.google.com/gview?url=${window.location.origin}/resume.pdf&embedded=true`}
                   className="h-full w-full border-none"
                   title="Resume Viewer"
                 />
