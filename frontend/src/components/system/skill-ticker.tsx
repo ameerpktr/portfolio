@@ -10,7 +10,7 @@ const skills = [
 
 export function SkillTicker() {
   return (
-    <div className="relative w-full h-12 bg-black flex items-center overflow-hidden border-t border-b border-[#d97706]/20">
+    <div className="relative w-full h-12 flex items-center overflow-hidden">
       <motion.div
         className="flex items-center whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
