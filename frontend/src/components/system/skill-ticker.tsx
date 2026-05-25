@@ -22,10 +22,10 @@ export function SkillTicker() {
       >
         {[...skills, ...skills].map((skill, index) => (
           <div key={index} className="flex items-center px-8">
-            <span className="text-[#d97706] font-mono text-sm uppercase tracking-widest font-bold">
+            <span className="text-slate-400 font-mono text-sm uppercase tracking-widest font-bold">
               {skill}
             </span>
-            <span className="ml-8 text-white/20">•</span>
+            <span className="ml-8 text-slate-500/50">•</span>
           </div>
         ))}
       </motion.div>
