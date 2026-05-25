@@ -281,18 +281,6 @@ export function HeroSection() {
 
             {/* E. Footer */}
             <footer className="relative z-20 w-full flex justify-center gap-6 py-6">
-              {[Linkedin, Github, Mail].map((Icon, i) => (
-                <motion.a 
-                  key={i} 
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 + (i * 0.1), duration: 0.8, ease: CUBIC_BEZIER_TRANSITION }}
-                  href={socials[i].href} 
-                  className="p-2 rounded-full bg-slate-200/50 dark:bg-slate-900/50 hover:bg-slate-300 dark:hover:bg-[#d97706]/20 transition-all text-slate-800 dark:text-[#d97706]"
-                >
-                  <Icon size={18} />
-                </motion.a>
-              ))}
             </footer>
           </motion.div>
         )}
