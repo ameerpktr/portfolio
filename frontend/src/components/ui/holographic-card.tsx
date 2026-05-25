@@ -7,13 +7,13 @@ export function HolographicCard() {
     <div className="relative group">
       {/* VOLUMETRIC NEON PULSING GLOW BEHIND CARD */}
       <motion.div
-        className="absolute inset-[-100px] z-0 pointer-events-none"
+        className="absolute inset-[-120px] z-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(22, 255, 0, 0.1) 0%, rgba(0,0,0,0) 70%)",
+          background: "radial-gradient(circle, rgba(22, 255, 0, 0.12) 0%, rgba(0, 240, 255, 0.03) 40%, rgba(0,0,0,0) 70%)",
         }}
         animate={{
           scale: [1, 1.1, 1],
-          opacity: [0.3, 0.6, 0.3],
+          opacity: [0.4, 0.6, 0.4],
         }}
         transition={{
           duration: 5,
@@ -22,14 +22,22 @@ export function HolographicCard() {
         }}
       />
 
+      {/* SECONDARY CINEMATIC GLOW (VIOLET/BLUE) */}
+      <div
+        className="absolute inset-[-80px] z-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 60%)",
+        }}
+      />
+
       {/* GLASS CARD CONTAINER */}
       <motion.div
         initial={{ 
           opacity: 0, 
-          scale: 1.8, 
-          rotateY: -30, 
-          rotateX: 15, 
-          filter: "blur(10px)" 
+          scale: 1.6, 
+          rotateY: -20, 
+          rotateX: 10, 
+          filter: "blur(15px)" 
         }}
         animate={{ 
           opacity: 1, 
@@ -40,32 +48,30 @@ export function HolographicCard() {
         }}
         exit={{ 
           opacity: 0, 
-          scale: 0.4, 
-          rotateY: 180,
-          rotateX: 45,
-          filter: "blur(40px)",
-          transition: { duration: 1.2, ease: [0.25, 1, 0.5, 1] } 
+          scale: 0.5, 
+          rotateY: 90,
+          rotateX: 20,
+          filter: "blur(30px)",
+          transition: { duration: 1, ease: [0.25, 1, 0.5, 1] } 
         }}
         transition={{ 
-          duration: 3, 
+          duration: 2.5, 
           ease: [0.22, 1, 0.36, 1] 
         }}
-        className="relative z-50 flex flex-col justify-between rounded-[28px] p-10 overflow-hidden cursor-default"
+        className="relative z-50 flex flex-col justify-between rounded-[32px] p-12 overflow-hidden cursor-default"
         style={{
-          width: "480px",
-          height: "300px",
-          transformOrigin: "20% 20%", // Start focus close to the chip area
-          // CLEAR GLASS EFFECT
-          background: "rgba(255, 255, 255, 0.005)", // Ultra-high transparency
-          backdropFilter: "blur(16px) saturate(120%) contrast(100%)", // Reduced blur for clearer glass
-          WebkitBackdropFilter: "blur(16px) saturate(120%) contrast(100%)",
+          width: "600px", // Increased from 480px
+          height: "380px", // Increased from 300px
+          transformOrigin: "center center",
+          background: "rgba(255, 255, 255, 0.002)", // Even more transparent
+          backdropFilter: "blur(24px) saturate(160%) contrast(110%)", // Increased blur and saturation
+          WebkitBackdropFilter: "blur(24px) saturate(160%) contrast(110%)",
           transformStyle: "preserve-3d",
-          // SOFT WHITE BORDERS
-          border: "1.5px solid rgba(255, 255, 255, 0.12)",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
           boxShadow: `
-            0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-            0 20px 50px rgba(0, 0, 0, 0.3),
-            0 0 20px rgba(22, 255, 0, 0.05)
+            0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+            0 30px 60px rgba(0, 0, 0, 0.5),
+            0 0 40px rgba(22, 255, 0, 0.1)
           `,
         }}
       >
@@ -73,7 +79,7 @@ export function HolographicCard() {
         <motion.div 
           className="absolute inset-0 z-0 pointer-events-none"
           style={{
-            background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)",
+            background: "linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%)",
             backgroundSize: "200% 200%",
           }}
           animate={{ backgroundPosition: ["200% 200%", "-100% -100%"] }}
@@ -81,16 +87,11 @@ export function HolographicCard() {
         />
 
         {/* ORGANIC CAUSTIC LIGHT (Subtle Tint) */}
-        <motion.div 
-          className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+        <div 
+          className="absolute inset-0 z-0 opacity-15 pointer-events-none"
           style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(22, 255, 0, 0.1) 0%, transparent 70%)",
+            background: "radial-gradient(circle at 50% 50%, rgba(22, 255, 0, 0.15) 0%, transparent 70%)",
           }}
-          animate={{ 
-            scale: [1, 1.3, 1],
-            x: [-30, 30, -30],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
 
         {/* CONTENT WRAPPER */}
@@ -110,22 +111,25 @@ export function HolographicCard() {
           {/* TOP ROW */}
           <div className="flex justify-between items-start">
             {/* Metallic Microchip */}
-            <div className="h-12 w-16 rounded-lg bg-gradient-to-br from-amber-100/60 via-yellow-400/50 to-amber-600/60 border border-white/20 shadow-inner overflow-hidden relative">
-               <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,white_4px,white_5px)]" />
-               <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,white_4px,white_5px)]" />
-            </div>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="h-14 w-20 rounded-lg bg-gradient-to-br from-amber-100/80 via-yellow-400/60 to-amber-600/80 border border-white/30 shadow-[0_0_20px_rgba(251,191,36,0.3)] overflow-hidden relative"
+            >
+               <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,white_4px,white_5px)]" />
+               <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,white_4px,white_5px)]" />
+            </motion.div>
             
             {/* Contactless Icon */}
-            <div className="text-white/60 group-hover:text-white/90 transition-colors">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M11 12a1 1 0 0 1 2 0"/>
               </svg>
             </div>
           </div>
 
           {/* CENTER / NUMBERS */}
-          <div className="mt-8">
-            <p className="font-mono text-[28px] tracking-[0.24em] text-white font-bold filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+          <div className="mt-4">
+            <p className="font-mono text-[34px] tracking-[0.24em] text-white font-black filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
               1243  3342  4358  0040
             </p>
           </div>
@@ -133,19 +137,19 @@ export function HolographicCard() {
           {/* BOTTOM ROW */}
           <div className="flex justify-between items-end">
             <div className="space-y-1">
-              <div className="flex gap-10 opacity-60">
-                <p className="text-[10px] font-bold text-white tracking-[0.1em] uppercase">FICB</p>
-                <p className="text-[10px] font-bold text-white tracking-[0.1em] uppercase">MAST FOXP</p>
+              <div className="flex gap-10 opacity-90">
+                <p className="text-[12px] font-black text-white tracking-[0.1em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">FICB</p>
+                <p className="text-[12px] font-black text-white tracking-[0.1em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">MAST FOXP</p>
               </div>
-              <p className="text-lg font-bold text-white tracking-[0.15em] uppercase mt-2 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]">
+              <p className="text-2xl font-black text-white tracking-[0.15em] uppercase mt-3 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
                 AMEER M
               </p>
             </div>
 
             {/* Logo Circles */}
-            <div className="flex -space-x-5 pr-1 mb-1 opacity-90 transition-all">
-              <div className="h-11 w-11 rounded-full bg-[#EB001B]" />
-              <div className="h-11 w-11 rounded-full bg-[#F79E1B]" />
+            <div className="flex -space-x-6 pr-2 mb-1 opacity-100 transition-all drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+              <div className="h-14 w-14 rounded-full bg-[#EB001B] border border-white/10" />
+              <div className="h-14 w-14 rounded-full bg-[#F79E1B] border border-white/10" />
             </div>
           </div>
         </motion.div>

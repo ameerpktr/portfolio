@@ -28,49 +28,50 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
     window.addEventListener("resize", resize);
     resize();
 
-    // HYPER-DENSITY DATA STRUCTURES
-    const PALETTE = ["#F2B50B", "#E8E2D8", "#F075AE", "#F4991A", "#B6F500"];
+    // HYPER-DENSITY DATA STRUCTURES (CINEMATIC PALETTE)
+    const PALETTE = ["#00F0FF", "#16FF00", "#7D3CFF", "#FFFFFF"];
     
-    const STREAMS_COUNT = 250; 
+    const STREAMS_COUNT = 2000; // Extreme density for ultra-immersive effect
     const streams = Array.from({ length: STREAMS_COUNT }).map(() => ({
-      x: Math.random() * 6 - 3, 
-      y: Math.random() * 6 - 3,
-      z: Math.random() * 5000,
-      speed: 20 + Math.random() * 40, 
-      length: 400 + Math.random() * 800,
+      x: Math.random() * 10 - 5, 
+      y: Math.random() * 10 - 5,
+      z: Math.random() * 6000,
+      speed: 10 + Math.random() * 45, 
+      length: 100 + Math.random() * 400,
       color: PALETTE[Math.floor(Math.random() * PALETTE.length)]
     }));
 
     const render = () => {
+      const time = performance.now() * 0.001;
       // 1. Update Physics
-      const fov = 1000;
-      const pX = mouseX.get() * 100;
-      const pY = mouseY.get() * 100;
+      const fov = 1400; // Increased FOV for better perspective at high density
+      const pX = mouseX.get() * 150;
+      const pY = mouseY.get() * 150;
 
       streams.forEach((s) => {
         s.z -= s.speed;
-        if (s.z < -fov) s.z = 5000;
+        if (s.z < -fov) s.z = 6000;
       });
-      scrollOffset.current = (scrollOffset.current + 8) % 100;
+      scrollOffset.current = (scrollOffset.current + 4) % 100;
 
-      // 2. Draw Frame
-      ctx.fillStyle = "rgba(5, 6, 6, 1)";
+      // ... (canvas draw)
+      ctx.fillStyle = "#050606";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
 
       // --- 1. Draw 3D Tunnel Planes ---
-      ctx.strokeStyle = "rgba(195, 255, 240, 0.05)"; // Subtler grid lines
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.015)"; // Minimalist grid
       ctx.lineWidth = 0.5;
 
       // Draw Grid Planes
       const drawPlane = (translateY: number, translateX: number = 0, rotate: boolean = false) => {
-        for (let i = -15; i <= 15; i++) {
-          const startOffset = i * 150 + (rotate ? pY : pX);
+        for (let i = -12; i <= 12; i++) { // Optimized count
+          const startOffset = i * 250 + (rotate ? pY : pX);
           ctx.beginPath();
-          for (let z = 0; z < 5000; z += 500) {
-            const zEff = z - scrollOffset.current * 8;
+          for (let z = 0; z < 6000; z += 800) { // Larger steps for performance
+            const zEff = z - scrollOffset.current * 12;
             const scale = fov / (fov + zEff);
             if (scale < 0) continue;
             const x = centerX + (rotate ? (translateX * scale) : (startOffset * scale));
@@ -81,23 +82,38 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         }
       };
 
-      drawPlane(600 + pY); drawPlane(-600 + pY);
-      drawPlane(0, -800 + pX, true); drawPlane(0, 800 + pX, true);
+      drawPlane(800 + pY); drawPlane(-800 + pY);
+      drawPlane(0, -1000 + pX, true); drawPlane(0, 1000 + pX, true);
 
       // --- 2. Draw Hyper-Dense Data Streams ---
-      ctx.globalCompositeOperation = 'lighter'; 
+      ctx.globalCompositeOperation = 'screen'; 
       streams.forEach((s) => {
         const scale = fov / (fov + s.z);
         if (scale <= 0) return;
 
-        const x2d = centerX + (s.x * canvas.width * 0.8 + pX) * scale;
-        const y2d = centerY + (s.y * canvas.height * 0.8 + pY) * scale;
+        const x2d = centerX + (s.x * canvas.width * 1.5 + pX) * scale;
+        const y2d = centerY + (s.y * canvas.height * 1.5 + pY) * scale;
         const len = s.length * scale;
 
-        // Subtler, more cinematic opacity
-        ctx.globalAlpha = Math.min(1, scale * 1.5);
+        // CINEMATIC SHINE FLOW: Modulate opacity and thickness based on time and Z-position
+        const shine = Math.sin(time * 2 + s.z * 0.002) * 0.3 + 0.7;
+        
+        const alpha = Math.min(0.9, scale * 1.8 * shine);
+        const weight = 1.2 * scale * shine;
+
+        // PASS 1: Outer Neon Glow (Colored)
+        ctx.globalAlpha = alpha * 0.6;
         ctx.strokeStyle = s.color;
-        ctx.lineWidth = 1.5 * scale;
+        ctx.lineWidth = weight * 2.5; // Thicker for glow effect
+        ctx.beginPath();
+        ctx.moveTo(x2d, y2d);
+        ctx.lineTo(x2d, y2d + len);
+        ctx.stroke();
+
+        // PASS 2: Shiny Inner Core (White/High Brightness)
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.lineWidth = weight * 0.8; // Thin shiny core
         ctx.beginPath();
         ctx.moveTo(x2d, y2d);
         ctx.lineTo(x2d, y2d + len);
@@ -106,8 +122,9 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
       ctx.globalCompositeOperation = 'source-over';
 
       // --- 3. Central Volumetric Pulse ---
-      const pulseGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, canvas.width / 1.5);
-      pulseGrad.addColorStop(0, "rgba(22, 255, 0, 0.15)");
+      const pulseGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, canvas.width);
+      pulseGrad.addColorStop(0, "rgba(22, 255, 0, 0.08)");
+      pulseGrad.addColorStop(0.3, "rgba(0, 240, 255, 0.02)");
       pulseGrad.addColorStop(1, "transparent");
 
       ctx.fillStyle = pulseGrad;
