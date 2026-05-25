@@ -188,7 +188,7 @@ export function HeroSection() {
                 <motion.p variants={leftItemVariants} className="text-xl lg:text-2xl text-[#00845e] dark:text-[#d97706] font-bold uppercase tracking-wider">Fintech Operations Associate</motion.p>
                 <motion.div variants={leftItemVariants} className="bg-emerald-500/10 dark:bg-[#d97706]/10 border-l-4 border-emerald-500 dark:border-[#d97706] p-4 rounded-r-xl">
                   <p className="text-slate-700 dark:text-slate-200 text-sm lg:text-[17px] leading-relaxed">
-                    <span className="font-bold text-slate-900 dark:text-[#d97706]">Proven Impact:</span> Mitigated over <span className="font-extrabold text-[#00845e] dark:text-[#f8fafc]">$10M+ in fraudulent transactions</span> while scaling operational efficiency across 5+ core fintech systems.
+                    <span className="font-bold text-slate-900 dark:text-[#d97706]">Proven Impact:</span> Focused on <span className="font-extrabold text-[#00845e] dark:text-[#f8fafc]">optimizing transaction accuracy and streamlining workflows</span> across 5+ core fintech systems to ensure operational excellence.
                   </p>
                 </motion.div>
                 <motion.p variants={leftItemVariants} className="text-slate-500 dark:text-slate-400 text-sm lg:text-[17px] leading-relaxed max-w-lg mx-auto lg:mx-0">
