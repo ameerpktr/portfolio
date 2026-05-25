@@ -94,31 +94,33 @@ export function DataMatrixBackground({ mouseX, mouseY }: Props) {
         const x2d = centerX + (s.x * canvas.width * 1.5 + pX) * scale;
         const y2d = centerY + (s.y * canvas.height * 1.5 + pY) * scale;
         const len = s.length * scale;
+// CINEMATIC SHINE FLOW: Modulate opacity and thickness based on time and Z-position
+// Adding subtle flicker (5% chance per frame) for organic "glitch" feel
+const flicker = Math.random() > 0.95 ? 0.4 : 1.0;
+const shine = Math.sin(time * 2 + s.z * 0.002) * 0.3 + 0.7;
 
-        // CINEMATIC SHINE FLOW: Modulate opacity and thickness based on time and Z-position
-        const shine = Math.sin(time * 2 + s.z * 0.002) * 0.3 + 0.7;
-        
-        const alpha = Math.min(0.9, scale * 1.8 * shine);
-        const weight = 1.2 * scale * shine;
+const alpha = Math.min(0.9, scale * 1.8 * shine * flicker);
+const weight = 1.2 * scale * shine;
 
-        // PASS 1: Outer Neon Glow (Colored)
-        ctx.globalAlpha = alpha * 0.6;
-        ctx.strokeStyle = s.color;
-        ctx.lineWidth = weight * 2.5; // Thicker for glow effect
-        ctx.beginPath();
-        ctx.moveTo(x2d, y2d);
-        ctx.lineTo(x2d, y2d + len);
-        ctx.stroke();
+// PASS 1: Outer Neon Glow (Colored)
+ctx.globalAlpha = alpha * 0.6;
+ctx.strokeStyle = s.color;
+ctx.lineWidth = weight * 2.5; 
+ctx.beginPath();
+ctx.moveTo(x2d, y2d);
+ctx.lineTo(x2d, y2d + len);
+ctx.stroke();
 
-        // PASS 2: Shiny Inner Core (White/High Brightness)
-        ctx.globalAlpha = alpha;
-        ctx.strokeStyle = "#FFFFFF";
-        ctx.lineWidth = weight * 0.8; // Thin shiny core
-        ctx.beginPath();
-        ctx.moveTo(x2d, y2d);
-        ctx.lineTo(x2d, y2d + len);
-        ctx.stroke();
-      });
+// PASS 2: Shiny Inner Core (White/High Brightness)
+ctx.globalAlpha = alpha;
+ctx.strokeStyle = "#FFFFFF";
+ctx.lineWidth = weight * 0.8; 
+ctx.beginPath();
+ctx.moveTo(x2d, y2d);
+ctx.lineTo(x2d, y2d + len);
+ctx.stroke();
+});
+
       ctx.globalCompositeOperation = 'source-over';
 
       // --- 3. Central Volumetric Pulse ---
