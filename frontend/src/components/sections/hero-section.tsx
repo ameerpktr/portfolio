@@ -232,6 +232,12 @@ export function HeroSection() {
                   className="relative h-[380px] w-[260px] lg:h-[500px] lg:w-[360px] rounded-[2rem] overflow-hidden border-[4px] border-white dark:border-[#1a1c1e] bg-slate-200 dark:bg-slate-900 z-20 shadow-2xl"
                 >
                   <img src="/ameer.png" className="h-full w-full object-cover grayscale brightness-110" alt="Ameer" />
+                  {/* Apple Logo Overlay */}
+                  <div className="absolute top-[35%] left-[65%] w-8 h-8 opacity-70 flex items-center justify-center">
+                    <svg viewBox="0 0 24 24" className="w-full h-full fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.05 10.28c-.23-2.9 2.53-4.32 2.65-4.4a8.2 8.2 0 0 0-2.22-2.12c-1.33-.87-3.04-.97-4.22-.05-.8.56-1.38.64-2.07.64-.67 0-1.44-.2-2.38-.85C9.43 2.92 7.78 2.8 6.55 3.56c-1.25.75-2.6 2.66-2.6 5.56 0 3.96 2.55 7.15 5.6 7.15.82 0 1.57-.45 2.5-.45.9 0 1.6.45 2.5.45 2.95 0 5.08-3.5 5.08-3.5a1.5 1.5 0 0 0-1.58-1.58zM12.4 2.84c.6-.74 1-1.78.88-2.84-1.25.05-2.77.85-3.66 1.87-.57.65-1.04 1.7-.9 2.72 1.25.07 2.76-.85 3.68-1.75z"/>
+                    </svg>
+                  </div>
                   
                   {/* D. Overlays ('524 Txns') */}
                   {dashboardStage === "final" && (
