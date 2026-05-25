@@ -190,7 +190,7 @@ export function HeroSection() {
                 </motion.p>
                 <motion.div variants={leftItemVariants} className="flex items-center justify-center lg:justify-start gap-4">
                   <Button onClick={() => setResumeOpen(true)} className="rounded-2xl px-8 bg-[#00845e] dark:bg-[#d97706] text-white font-bold hover:opacity-90 transition-all">View My CV</Button>
-                  <a href="#experience"><Button variant="outline" className="rounded-2xl border-slate-200 dark:border-slate-800 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-900">View My Works</Button></a>
+                  <a href="#experience"><Button variant="ghost" className="rounded-2xl border-slate-200 dark:border-slate-800 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-900">View My Works</Button></a>
                 </motion.div>
               </motion.div>
 
