@@ -51,18 +51,16 @@ export function ResumeModal() {
               </div>
             </div>
 
-            {/* Resume Content (Iframe) */}
-            <div className="flex-1 overflow-y-auto bg-muted/30 p-4">
+            {/* Resume Content (Object) */}
+            <div className="flex-1 overflow-hidden bg-muted/30 p-4">
               <div className="mx-auto h-full w-full max-w-4xl overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/5">
-                {/* 
-                  NOTE: Browsers can't render .docx natively. 
-                  We'll use Google Docs Viewer for a modern embedded look.
-                */}
-                <iframe
-                  src={`https://docs.google.com/gview?url=${window.location.origin}/resume.pdf&embedded=true`}
-                  className="h-full w-full border-none"
-                  title="Resume Viewer"
-                />
+                <object
+                  data="/resume.pdf"
+                  type="application/pdf"
+                  className="h-full w-full"
+                >
+                  <p>Your browser does not support PDFs. <a href="/resume.pdf">Download the PDF</a> instead.</p>
+                </object>
               </div>
             </div>
 
