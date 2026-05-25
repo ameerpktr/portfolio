@@ -171,7 +171,7 @@ export function HeroSection() {
                   {theme === "dark" ? <Sun size={18} className="text-[#d97706]" /> : <Moon size={18} />}
                 </button>
                 <a href="/resume.docx" download="Ameer_M_Resume.docx">
-                  <Button size="sm" className="bg-[#00845e] dark:bg-[#d97706] text-white rounded-xl px-4 py-4 font-bold text-[11px] lg:text-[13px] hover:opacity-90 transition-opacity">Download CV</Button>
+                  <Button className="bg-[#00845e] dark:bg-[#d97706] text-white rounded-xl px-4 py-4 font-bold text-[11px] lg:text-[13px] hover:opacity-90 transition-opacity">Download CV</Button>
                 </a>
               </div>
             </motion.nav>
