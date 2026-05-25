@@ -179,8 +179,8 @@ export const achievements = [
 export const education = ["Diploma in Electronics Engineering", "Higher Secondary Education - Science"];
 
 export const socials = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/ameer-m", value: "linkedin.com/in/ameer-m" },
-  { label: "GitHub", href: "https://github.com/ameerpktr", value: "github.com/ameerpktr" },
-  { label: "Email", href: "mailto:ameerthanal123@gmail.com", value: "ameerthanal123@gmail.com" },
+  { label: "Linkedin", href: "https://www.linkedin.com/in/ameer-m-ba4b1133a", value: "linkedin.com/in/ameer-m-ba4b1133a" },
+  { label: "Github", href: "https://github.com/ameerpktr", value: "github.com/ameerpktr" },
+  { label: "Mail", href: "ameerthanal123@gmail.com", value: "ameerthanal123@gmail.com" },
   { label: "Phone", href: "tel:+919567622580", value: "+91 95676 22580" }
 ];
