@@ -161,7 +161,7 @@ export function HeroSection() {
               className="relative z-20 w-full grid grid-cols-3 items-center px-6 lg:px-12 py-6"
             >
               <div />
-              <div className="flex justify-center gap-4 lg:gap-8 text-[11px] lg:text-[13px] font-bold text-slate-800 dark:text-slate-400 tracking-tight">
+              <div className="flex justify-center gap-4 lg:gap-8 text-[13px] lg:text-[15px] font-bold text-slate-800 dark:text-slate-400 tracking-tight">
                 <a href="#about" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">About</a>
                 <a href="#experience" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">Experience</a>
                 <a href="#operations" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">Operations</a>
