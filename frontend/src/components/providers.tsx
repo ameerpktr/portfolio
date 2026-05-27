@@ -51,7 +51,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             </motion.div>
           )}
         </AnimatePresence>
-        <Toaster richColors position="bottom-right" theme="dark" />
+        <Toaster richColors position="bottom-right" />
       </QueryClientProvider>
     </ThemeProvider>
   );

@@ -266,7 +266,7 @@ export function HeroSection() {
                   variants={badgeVariants}
                   className="absolute -top-4 left-1/2 -translate-x-1/2 z-30 px-4 py-1 rounded-full bg-slate-900 shadow-xl flex items-center gap-2"
                 >
-                    <div className="h-2 w-2 rounded-full bg-[#d97706] animate-pulse" />
+                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="text-[10px] text-white font-black uppercase tracking-widest">ACTIVE</span>
                 </motion.div>
               </div>
