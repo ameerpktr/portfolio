@@ -158,21 +158,21 @@ export function HeroSection() {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8, ease: CUBIC_BEZIER_TRANSITION }}
-              className="relative z-20 w-full grid grid-cols-3 items-center px-6 lg:px-12 py-6"
+              className="relative z-20 w-full flex items-center justify-between px-6 lg:px-12 py-6"
             >
-              <div />
-              <div className="flex justify-center gap-4 lg:gap-8 text-[13px] lg:text-[15px] font-bold text-slate-800 dark:text-slate-400 tracking-tight">
+              <div className="flex-1 md:flex-none hidden md:block" />
+              <div className="flex items-center justify-center gap-3 sm:gap-4 lg:gap-8 text-[11px] sm:text-[13px] lg:text-[15px] font-bold text-slate-800 dark:text-slate-400 tracking-tight">
                 <a href="#about" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">About</a>
                 <a href="#experience" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">Experience</a>
                 <a href="#operations" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">Operations</a>
-                <a href="#contact" className="hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">Contact</a>
+                <a href="#contact" className="hidden sm:block hover:text-slate-900 dark:hover:text-[#d97706] transition-colors">Contact</a>
               </div>
-              <div className="flex justify-end items-center gap-2 lg:gap-4">
+              <div className="flex flex-1 md:flex-none justify-end items-center gap-2 lg:gap-4">
                 <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 rounded-full text-slate-600 dark:text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">
                   {theme === "dark" ? <Sun size={18} className="text-[#d97706]" /> : <Moon size={18} />}
                 </button>
                 <a href="/resume.docx" download="Ameer_M_Resume.docx">
-                  <Button className="bg-[#00845e] dark:bg-[#d97706] text-white rounded-xl px-4 py-4 font-bold text-[11px] lg:text-[13px] hover:opacity-90 transition-opacity">Download CV</Button>
+                  <Button className="bg-[#00845e] dark:bg-[#d97706] text-white rounded-xl px-3 py-3 sm:px-4 sm:py-4 font-bold text-[10px] sm:text-[11px] lg:text-[13px] hover:opacity-90 transition-opacity">Download CV</Button>
                 </a>
               </div>
             </motion.nav>
@@ -196,12 +196,12 @@ export function HeroSection() {
                   Building secure fintech ecosystems through advanced fraud intelligence, rigorous AML/KYC compliance, and seamless operational workflows.
                 </motion.p>
                 {/* Prominent Contact Buttons */}
-                <motion.div variants={leftItemVariants} className="flex items-center justify-center lg:justify-start gap-4">
-                  <Button onClick={() => setResumeOpen(true)} className="rounded-2xl px-8 bg-[#00845e] dark:bg-[#d97706] text-white font-bold hover:opacity-90 transition-all">View My CV</Button>
-                  <a href="#experience"><Button variant="ghost" className="rounded-2xl border-slate-200 dark:border-slate-800 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-900">View My Works</Button></a>
+                <motion.div variants={leftItemVariants} className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                  <Button onClick={() => setResumeOpen(true)} className="rounded-2xl px-6 sm:px-8 bg-[#00845e] dark:bg-[#d97706] text-white font-bold hover:opacity-90 transition-all text-sm sm:text-base">View My CV</Button>
+                  <a href="#experience"><Button variant="ghost" className="rounded-2xl border-slate-200 dark:border-slate-800 dark:text-slate-300 font-bold hover:bg-slate-100 dark:hover:bg-slate-900 text-sm sm:text-base">View My Works</Button></a>
                   
                   {/* LinkedIn, GitHub & Mail */}
-                  <div className="flex gap-2 ml-2">
+                  <div className="flex gap-2">
                     <a href={socials.find(s => s.label === 'Linkedin')?.href} target="_blank" rel="noopener noreferrer" className="p-3 rounded-2xl bg-white/50 dark:bg-[#1a1c1e] hover:bg-[#0077b5]/10 text-slate-800 dark:text-[#d97706] hover:text-[#0077b5] transition-all border border-slate-200 dark:border-slate-800">
                       <Linkedin size={20} />
                     </a>
@@ -273,12 +273,12 @@ export function HeroSection() {
                 variants={rightColumnVariants}
                 className="flex flex-row lg:flex-col gap-4 order-3"
               >
-                <motion.div variants={rightItemVariants} className="bg-white/80 dark:bg-[#0f1115] p-6 rounded-2xl shadow-xl w-32 lg:w-48 border border-transparent dark:border-slate-800/50">
+                <motion.div variants={rightItemVariants} className="bg-white/80 dark:bg-[#0f1115] p-4 sm:p-6 rounded-2xl shadow-xl w-[140px] sm:w-48 border border-transparent dark:border-slate-800/50">
                   <p className="text-4xl lg:text-6xl font-black text-slate-900 dark:text-[#f8fafc]"><CountingNumber value={40} />%</p>
                   <p className="text-[9px] font-black text-emerald-600 dark:text-[#d97706] uppercase mt-1">FRAUD ↓</p>
                 </motion.div>
-                <motion.div variants={rightItemVariants} className="bg-[#1a1c1e] dark:bg-[#0f1115] p-6 rounded-2xl shadow-xl w-32 lg:w-48 text-white border border-transparent dark:border-slate-800/50">
-                  <p className="text-lg font-black uppercase leading-tight dark:text-slate-200">Operations</p>
+                <motion.div variants={rightItemVariants} className="bg-[#1a1c1e] dark:bg-[#0f1115] p-4 sm:p-6 rounded-2xl shadow-xl w-[140px] sm:w-48 text-white border border-transparent dark:border-slate-800/50">
+                  <p className="text-sm sm:text-lg font-black uppercase leading-tight dark:text-slate-200">Operations</p>
                   <div className="h-12 w-full mt-2">
                       <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="h-full w-full"><motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 2, duration: 1.5 }} d="M0,30 Q25,10 50,25 T100,10" fill="none" stroke={theme === 'dark' ? '#d97706' : '#10b981'} strokeWidth="4" /></svg>
                   </div>

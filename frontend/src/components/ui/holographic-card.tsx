@@ -58,10 +58,8 @@ export function HolographicCard() {
           duration: 2.5, 
           ease: [0.22, 1, 0.36, 1] 
         }}
-        className="relative z-50 flex flex-col justify-between rounded-[32px] p-12 overflow-hidden cursor-default"
+        className="relative z-50 flex flex-col justify-between rounded-[24px] sm:rounded-[32px] p-6 sm:p-12 overflow-hidden cursor-default w-[calc(100vw-40px)] max-w-[600px] h-[calc((100vw-40px)*0.63)] max-h-[380px] sm:w-[600px] sm:h-[380px]"
         style={{
-          width: "600px", // Increased from 480px
-          height: "380px", // Increased from 300px
           transformOrigin: "center center",
           background: "rgba(255, 255, 255, 0.002)", // Even more transparent
           backdropFilter: "blur(24px) saturate(160%) contrast(110%)", // Increased blur and saturation
@@ -113,7 +111,7 @@ export function HolographicCard() {
             {/* Metallic Microchip */}
             <motion.div 
               whileHover={{ scale: 1.05 }}
-              className="h-14 w-20 rounded-lg bg-gradient-to-br from-amber-100/80 via-yellow-400/60 to-amber-600/80 border border-white/30 shadow-[0_0_20px_rgba(251,191,36,0.3)] overflow-hidden relative"
+              className="h-8 w-12 sm:h-14 sm:w-20 rounded-lg bg-gradient-to-br from-amber-100/80 via-yellow-400/60 to-amber-600/80 border border-white/30 shadow-[0_0_20px_rgba(251,191,36,0.3)] overflow-hidden relative"
             >
                <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(90deg,transparent,transparent_4px,white_4px,white_5px)]" />
                <div className="absolute inset-0 opacity-30 bg-[repeating-linear-gradient(0deg,transparent,transparent_4px,white_4px,white_5px)]" />
@@ -121,7 +119,7 @@ export function HolographicCard() {
             
             {/* Contactless Icon */}
             <div className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-6 h-6 sm:w-10 sm:h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12a7 7 0 0 1 14 0"/><path d="M8 12a4 4 0 0 1 8 0"/><path d="M11 12a1 1 0 0 1 2 0"/>
               </svg>
             </div>
@@ -129,7 +127,7 @@ export function HolographicCard() {
 
           {/* CENTER / NUMBERS */}
           <div className="mt-4">
-            <p className="font-mono text-[34px] tracking-[0.24em] text-white font-black filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <p className="font-mono text-[14px] xs:text-[18px] sm:text-[34px] tracking-[0.24em] text-white font-black filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] whitespace-nowrap">
               1243  3342  4358  0040
             </p>
           </div>
@@ -137,19 +135,19 @@ export function HolographicCard() {
           {/* BOTTOM ROW */}
           <div className="flex justify-between items-end">
             <div className="space-y-1">
-              <div className="flex gap-10 opacity-90">
-                <p className="text-[12px] font-black text-white tracking-[0.1em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">FICB</p>
-                <p className="text-[12px] font-black text-white tracking-[0.1em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">MAST FOXP</p>
+              <div className="flex gap-4 sm:gap-10 opacity-90">
+                <p className="text-[8px] sm:text-[12px] font-black text-white tracking-[0.1em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">FICB</p>
+                <p className="text-[8px] sm:text-[12px] font-black text-white tracking-[0.1em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">MAST FOXP</p>
               </div>
-              <p className="text-2xl font-black text-white tracking-[0.15em] uppercase mt-3 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
+              <p className="text-sm sm:text-2xl font-black text-white tracking-[0.15em] uppercase mt-1 sm:mt-3 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
                 AMEER M
               </p>
             </div>
 
             {/* Logo Circles */}
-            <div className="flex -space-x-6 pr-2 mb-1 opacity-100 transition-all drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
-              <div className="h-14 w-14 rounded-full bg-[#EB001B] border border-white/10" />
-              <div className="h-14 w-14 rounded-full bg-[#F79E1B] border border-white/10" />
+            <div className="flex -space-x-3 sm:-space-x-6 pr-1 sm:pr-2 mb-1 opacity-100 transition-all drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+              <div className="h-8 w-8 sm:h-14 sm:w-14 rounded-full bg-[#EB001B] border border-white/10" />
+              <div className="h-8 w-8 sm:h-14 sm:w-14 rounded-full bg-[#F79E1B] border border-white/10" />
             </div>
           </div>
         </motion.div>

@@ -1,10 +1,11 @@
 "use client";
 
+import { MotionValue } from "framer-motion";
 import React, { useRef, useEffect } from "react";
 
 interface Props {
-  mouseX: any;
-  mouseY: any;
+  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
 }
 
 export function DataMatrixBackground({ mouseX, mouseY }: Props) {
