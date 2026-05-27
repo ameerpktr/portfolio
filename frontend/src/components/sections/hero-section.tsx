@@ -125,7 +125,10 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#050606]">
+    <section 
+      className="relative min-h-screen w-full overflow-hidden transition-colors duration-1000"
+      style={{ backgroundColor: isIntro ? '#050606' : (theme === 'dark' ? '#050505' : '#f4f6f5') }}
+    >
       <AnimatePresence mode="wait">
         {isIntro ? (
           <motion.div 
